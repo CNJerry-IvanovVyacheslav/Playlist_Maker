@@ -7,8 +7,8 @@ import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.activity_main)
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
 
         val searchButton = findViewById<Button>(R.id.search)
         val mediaButton = findViewById<Button>(R.id.media)
