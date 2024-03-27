@@ -1,0 +1,4 @@
+<resources>
+    <dimen name="default_for_title">22sp</dimen>
+    <dimen name="default_for_text">16sp</dimen>
+</resources>
