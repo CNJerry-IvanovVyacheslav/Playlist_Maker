@@ -23,13 +23,11 @@
             android:clickable="true"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/PageTitle"
             android:layout_marginStart="60dp"
             android:layout_marginTop="14dp"
             android:text="@string/settings"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_title" />
+            android:textColor="@color/black" />
 
     </FrameLayout>
 
@@ -39,13 +37,8 @@
         android:layout_marginTop="24dp">
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/black_theme"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_text" />
+            style="@style/SettingsMenu"
+            android:text="@string/black_theme" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:layout_width="match_parent"
@@ -59,18 +52,10 @@
         android:layout_height="61dp">
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/share"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_text" />
+            style="@style/SettingsMenu"
+            android:text="@string/share" />
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="12dp"
+            style="@style/IconInSettings"
             android:src="@drawable/share_light" />
     </FrameLayout>
 
@@ -79,18 +64,10 @@
         android:layout_height="61dp">
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/support"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_text" />
+            style="@style/SettingsMenu"
+            android:text="@string/support" />
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="12dp"
+            style="@style/IconInSettings"
             android:src="@drawable/support_light"/>
 
     </FrameLayout>
@@ -100,19 +77,11 @@
         android:layout_height="61dp">
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/user_agreement"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_text" />
+            style="@style/SettingsMenu"
+            android:text="@string/user_agreement" />
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="12dp"
+            style="@style/IconInSettings"
             android:src="@drawable/forward_light"/>
 
     </FrameLayout>
