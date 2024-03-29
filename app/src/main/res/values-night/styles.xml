@@ -42,7 +42,5 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_marginBottom">10sp</item>
-
-
     </style>
 </resources>
