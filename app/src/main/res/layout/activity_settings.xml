@@ -46,6 +46,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/shareTheApp"
         android:layout_width="match_parent"
         android:layout_height="61dp">
 
@@ -58,6 +59,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/writeInSupport"
         android:layout_width="match_parent"
         android:layout_height="61dp">
 
@@ -71,6 +73,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/agreement"
         android:layout_width="match_parent"
         android:layout_height="61dp">
 

@@ -8,5 +8,12 @@
     <string name="support">Написать в поддеркжу</string>
     <string name="user_agreement">Пользовательское соглашение</string>
     <string name="nothing_here">Хитрый гусь украл содержимое. Скоро мы решим проблему!</string>
+    <string name="link_for_share">https://practicum.yandex.ru/android-developer/</string>
+    <string name="support_mail">syava11212@yandex.ru</string>
+    <string name="message">Спасибо разработчикам и разработчицам за крутое приложение!</string>
+    <string name="subject_line">Сообщение разработчикам и разработчицам приложения Playlist Maker</string>
+    <string name="agreement_link">https://yandex.ru/legal/practicum_offer/</string>
+
+
 
 </resources>
