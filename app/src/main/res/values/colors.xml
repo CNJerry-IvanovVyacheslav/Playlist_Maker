@@ -5,4 +5,6 @@
     <color name="background_light">#3772E7</color>
     <color name="background_night">#1A1B22</color>
     <color name="grey_icon">#AEAFB4</color>
+    <color name="grey_search_bar">#E6E8EB</color>
+    #E6E8EB
 </resources>

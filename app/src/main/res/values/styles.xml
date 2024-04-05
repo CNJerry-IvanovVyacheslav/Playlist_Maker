@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="BaseButton">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">220dp</item>
@@ -15,6 +16,7 @@
         <item name="iconGravity">textStart</item>
         <item name="iconTint">@color/black</item>
     </style>
+
     <style name="SettingsMenu">
         <item name="android:layout_width">300dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -24,12 +26,14 @@
         <item name="android:textFontWeight">400</item>
         <item name="android:textSize">@dimen/default_for_text</item>
     </style>
+
     <style name="IconInSettings">
         <item name="android:layout_width">24dp</item>
         <item name="android:layout_height">24dp</item>
         <item name="android:layout_gravity">end|center_vertical</item>
         <item name="android:layout_marginEnd">12dp</item>
     </style>
+
     <style name="PageTitle">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -38,11 +42,25 @@
         <item name="android:textFontWeight">500</item>
         <item name="android:textSize">@dimen/default_for_title</item>
     </style>
-    <style name="SettingsBottomMenu">
+
+    <style name="SearchBar">
+        <item name="drawableStartCompat">@drawable/search_bar_icon</item>
+        <item name="android:drawablePadding">4dp</item>
+        <item name="drawableTint">@color/grey_icon</item>
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">60dp</item>
-        <item name="android:layout_marginBottom">10sp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:layout_marginEnd">40dp</item>
+        <item name="android:paddingVertical">8dp</item>
+        <item name="android:hint">@string/search</item>
+        <item name="android:backgroundTint">@color/grey_search_bar</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:inputType">text</item>
+        <item name="android:textFontWeight">400</item>
+        <item name="android:textColorHint">@color/grey_icon</item>
+    </style>
 
-
+    <style name="SetBackground">
+        <item name="android:background">@color/grey_search_bar</item>
     </style>
 </resources>
