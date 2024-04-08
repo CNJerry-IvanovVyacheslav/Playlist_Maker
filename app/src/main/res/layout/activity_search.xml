@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".SearchActivity">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp">
 
@@ -21,21 +21,18 @@
             android:src="@drawable/back_light" />
 
         <TextView
+            android:layout_gravity="center_vertical"
             style="@style/PageTitle"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="14dp"
             android:text="@string/search" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <FrameLayout
-        style="@style/SetBackground"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        style="@style/BaseForSearchBar" >
 
         <EditText
             android:id="@+id/searchEditText"
@@ -61,6 +58,5 @@
         </LinearLayout>
 
     </FrameLayout>
-
 
 </LinearLayout>

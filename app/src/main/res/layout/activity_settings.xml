@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp"
         android:layout_marginEnd="52dp">
@@ -23,15 +23,14 @@
 
         <TextView
             style="@style/PageTitle"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="14dp"
+            android:layout_gravity="center_vertical"
             android:text="@string/settings"/>
 
-    </FrameLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="60dp"
         android:layout_marginTop="24dp">
 
         <TextView
@@ -40,15 +39,14 @@
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="6dp"/>
+            android:layout_height="match_parent"/>
 
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/shareTheApp"
         android:layout_width="match_parent"
-        android:layout_height="61dp">
+        android:layout_height="60dp">
 
         <TextView
             style="@style/SettingsMenu"
@@ -61,7 +59,7 @@
     <FrameLayout
         android:id="@+id/writeInSupport"
         android:layout_width="match_parent"
-        android:layout_height="61dp">
+        android:layout_height="60dp">
 
         <TextView
             style="@style/SettingsMenu"
@@ -75,7 +73,7 @@
     <FrameLayout
         android:id="@+id/agreement"
         android:layout_width="match_parent"
-        android:layout_height="61dp">
+        android:layout_height="60dp">
 
         <TextView
             style="@style/SettingsMenu"
