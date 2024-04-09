@@ -4,15 +4,17 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 
 class SearchActivity : AppCompatActivity() {
-    var str: CharSequence? = null
+
+    private var str: CharSequence? = null
+    private lateinit var inputEditText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,7 +22,7 @@ class SearchActivity : AppCompatActivity() {
 
         val backButton = findViewById<ImageView>(R.id.back_light)
         val buttonClear = findViewById<LinearLayout>(R.id.clearIcon)
-        val inputEditText = findViewById<EditText>(R.id.searchEditText)
+        inputEditText = findViewById(R.id.searchEditText)
 
         backButton.setOnClickListener {
             finish()
@@ -38,7 +40,7 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 str = s
-                buttonClear.visibility = buttonClearVisibility(s)
+                buttonClear.isVisible = !s.isNullOrEmpty()
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -48,28 +50,19 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-    private fun buttonClearVisibility(s: CharSequence?): Int {
-        return if (s.isNullOrEmpty()) {
-            View.GONE
-        } else {
-            View.VISIBLE
-        }
-    }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SEARCH_NAME, str.toString())
     }
 
-    companion object {
-        const val SEARCH_NAME = "NAME"
-    }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        val editText = findViewById<EditText>(R.id.searchEditText)
         str = savedInstanceState.getString(SEARCH_NAME, null)
-        editText.setText(str)
+        inputEditText.setText(str)
+    }
+
+    private companion object {
+        const val SEARCH_NAME = "NAME"
     }
 
 }

@@ -8,6 +8,7 @@
 
 
     <TextView
+        style="@style/SetColorForText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/nothing_here"
@@ -15,7 +16,6 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:textSize="@dimen/default_for_title"
-        android:textColor="@color/black"
         app:drawableTopCompat="@drawable/goose" />
 
 

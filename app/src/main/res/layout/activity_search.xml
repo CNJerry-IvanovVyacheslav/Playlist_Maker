@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".SearchActivity">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="56dp">
 
@@ -22,14 +22,13 @@
 
         <TextView
             style="@style/PageTitle"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="14dp"
+            android:layout_gravity="center_vertical"
             android:text="@string/search" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <FrameLayout
-        style="@style/SetBackground"
+        style="@style/BaseForSearchBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
