@@ -1,118 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:theme="@style/Theme.PlaylistMaker"
     android:orientation="vertical">
 
-    <FrameLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:layout_marginEnd="52dp">
+        android:layout_height="56dp">
 
         <ImageView
-            android:id = "@+id/back_light"
+            android:id="@+id/back_light"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_marginTop="4dp"
             android:layout_marginStart="4dp"
-            android:backgroundTint="@color/white"
             android:src="@drawable/back_light"
-            app:iconTint="@color/black"
             android:clickable="true"/>
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="60dp"
-            android:layout_marginTop="14dp"
-            android:text="@string/settings"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_title" />
+            style="@style/PageTitle"
+            android:layout_gravity="center_vertical"
+            android:text="@string/settings"/>
 
-    </FrameLayout>
+    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="61dp"
+        android:layout_height="60dp"
         android:layout_marginTop="24dp">
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/black_theme"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_text" />
+            style="@style/SettingsMenu"
+            android:text="@string/black_theme" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginRight="6dp"/>
+            android:layout_height="match_parent"/>
 
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/shareTheApp"
         android:layout_width="match_parent"
-        android:layout_height="61dp">
+        android:layout_height="60dp">
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/share"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_text" />
+            style="@style/SettingsMenu"
+            android:text="@string/share" />
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="12dp"
+            style="@style/IconInSettings"
             android:src="@drawable/share_light" />
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/writeInSupport"
         android:layout_width="match_parent"
-        android:layout_height="61dp">
+        android:layout_height="60dp">
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/support"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_text" />
+            style="@style/SettingsMenu"
+            android:text="@string/support" />
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="12dp"
+            style="@style/IconInSettings"
             android:src="@drawable/support_light"/>
 
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/agreement"
         android:layout_width="match_parent"
-        android:layout_height="61dp">
+        android:layout_height="60dp">
 
         <TextView
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="21dp"
-            android:text="@string/user_agreement"
-            android:textColor="@color/black"
-            android:textSize="@dimen/default_for_text" />
+            style="@style/SettingsMenu"
+            android:text="@string/user_agreement" />
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_gravity="end|center_vertical"
-            android:layout_marginEnd="12dp"
+            style="@style/IconInSettings"
             android:src="@drawable/forward_light"/>
 
     </FrameLayout>

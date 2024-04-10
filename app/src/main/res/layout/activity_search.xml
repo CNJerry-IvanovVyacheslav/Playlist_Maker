@@ -1,22 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".SearchActivity">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
 
-    <TextView
-        android:layout_width="wrap_content"
+        <ImageView
+            android:id="@+id/back_light"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:src="@drawable/back_light" />
+
+        <TextView
+            style="@style/PageTitle"
+            android:layout_gravity="center_vertical"
+            android:text="@string/search" />
+
+    </LinearLayout>
+
+    <FrameLayout
+        style="@style/BaseForSearchBar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/nothing_here"
-        android:layout_margin="1sp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:textSize="@dimen/default_for_title"
-        android:textColor="@color/black"
-        app:drawableTopCompat="@drawable/goose" />
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/searchEditText"
+            style="@style/SearchBar" />
+
+        <LinearLayout
+            android:id="@+id/clearIcon"
+            style="@style/SetBackground"
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="end"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                style="@style/SetBackground"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical|end"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                app:tint="@color/black" />
+        </LinearLayout>
+
+    </FrameLayout>
 
 
-</FrameLayout>
+</LinearLayout>

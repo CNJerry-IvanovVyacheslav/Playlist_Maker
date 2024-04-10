@@ -1,4 +1,6 @@
 <resources>
     <dimen name="default_for_title">22sp</dimen>
     <dimen name="default_for_text">16sp</dimen>
+    <dimen name="search_bar">8dp</dimen>
+    <dimen name="zero_dimens">0dp</dimen>
 </resources>
