@@ -61,6 +61,10 @@
         <item name="android:textColorHint">@color/grey_icon</item>
     </style>
 
+    <style name="BackArrowColor">
+        <item name="android:tint">@color/black</item>
+    </style>
+
     <style name="SetColorForText">
         <item name="android:textColor">@color/background_night</item>
     </style>

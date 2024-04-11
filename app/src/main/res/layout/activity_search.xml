@@ -15,6 +15,7 @@
             android:id="@+id/back_light"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            style="@style/BackArrowColor"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:clickable="true"
