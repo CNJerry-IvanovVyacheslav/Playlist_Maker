@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/search_bar_8dp"
+    android:theme="@style/Theme.PlaylistMaker">
+
+    <LinearLayout
+        style="@style/tracks_linear_layout">
+
+        <ImageView
+            android:id="@+id/track_image"
+            style="@style/tracks_image"
+            tools:src="@drawable/placeholder"/>
+
+        <LinearLayout style="@style/tracks_linear_layout.vertical">
+
+            <TextView
+                android:id="@+id/track_name"
+                style="@style/tracks_text"
+                tools:text="Хорошее название" />
+
+            <LinearLayout
+                style="@style/tracks_linear_layout">
+
+                <TextView
+                    android:id="@+id/track_artist"
+                    style="@style/tracks_text.artist"
+                    tools:text="Отличная группа Хорошее длинное название прям вообще Never gonna give you up" />
+
+                <TextView
+                    android:id="@+id/track_time"
+                    style="@style/tracks_text.time"
+                    tools:text="2:55" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <ImageView style="@style/tracks_arrow" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

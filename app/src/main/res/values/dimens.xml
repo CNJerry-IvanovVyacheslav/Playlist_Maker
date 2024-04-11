@@ -1,6 +1,11 @@
 <resources>
     <dimen name="default_for_title">22sp</dimen>
     <dimen name="default_for_text">16sp</dimen>
-    <dimen name="search_bar">8dp</dimen>
+    <dimen name="search_bar_8dp">8dp</dimen>
     <dimen name="zero_dimens">0dp</dimen>
+    <dimen name="dimens_44dp">44dp</dimen>
+    <dimen name="dimens_24dp">24dp</dimen>
+    <dimen name="dimens_2dp">2dp</dimen>
+    <dimen name="default_dor_small_text">12sp</dimen>
+    <dimen name="dimens_16dp">16dp</dimen>
 </resources>
