@@ -23,12 +23,16 @@
                 tools:text="Хорошее название" />
 
             <LinearLayout
-                style="@style/tracks_linear_layout">
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/track_artist"
                     style="@style/tracks_text.artist"
-                    tools:text="Отличная группа Хорошее длинное название прям вообще Never gonna give you up" />
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    tools:text="Длинное прям ооооооооочень длинннннннннное нааааазаззазазвание" />
 
                 <TextView
                     android:id="@+id/track_time"
@@ -39,7 +43,9 @@
 
         </LinearLayout>
 
-        <ImageView style="@style/tracks_arrow" />
+        <ImageView
+            style="@style/tracks_arrow"
+            android:layout_marginEnd="12dp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

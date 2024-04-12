@@ -30,8 +30,6 @@ class SearchActivity : AppCompatActivity() {
         val buttonClear = findViewById<LinearLayout>(R.id.clearIcon)
         inputEditText = findViewById(R.id.searchEditText)
 
-
-
         backButton.setOnClickListener {
             finish()
         }
@@ -62,7 +60,6 @@ class SearchActivity : AppCompatActivity() {
 
     }
 
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString(SEARCH_NAME, str.toString())
@@ -77,5 +74,4 @@ class SearchActivity : AppCompatActivity() {
     private companion object {
         const val SEARCH_NAME = "NAME"
     }
-
 }

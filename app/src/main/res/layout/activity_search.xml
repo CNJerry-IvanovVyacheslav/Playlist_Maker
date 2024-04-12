@@ -43,7 +43,7 @@
 
         <LinearLayout
             android:id="@+id/clearIcon"
-            style="@style/SetBackground"
+            style="@style/BaseForSearchBar"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
