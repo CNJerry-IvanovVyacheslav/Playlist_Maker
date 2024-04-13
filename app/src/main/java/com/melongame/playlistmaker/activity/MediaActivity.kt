@@ -1,7 +1,8 @@
-package com.melongame.playlistmaker
+package com.melongame.playlistmaker.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.melongame.playlistmaker.R
 
 class MediaActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

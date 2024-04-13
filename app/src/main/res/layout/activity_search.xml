@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".SearchActivity">
+    tools:context=".activity.SearchActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -15,6 +15,7 @@
             android:id="@+id/back_light"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            style="@style/BackArrowColor"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:clickable="true"
@@ -42,7 +43,7 @@
 
         <LinearLayout
             android:id="@+id/clearIcon"
-            style="@style/SetBackground"
+            style="@style/BaseForSearchBar"
             android:layout_width="40dp"
             android:layout_height="match_parent"
             android:layout_gravity="end"
@@ -59,7 +60,15 @@
                 app:tint="@color/black" />
         </LinearLayout>
 
+
     </FrameLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/track_search"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/track_list"
+        android:layout_marginTop="@dimen/dimens_16dp" />
 
 </LinearLayout>

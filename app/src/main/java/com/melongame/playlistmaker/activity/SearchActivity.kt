@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker
+package com.melongame.playlistmaker.activity
 
 import android.content.Context
 import android.os.Bundle
@@ -10,11 +10,17 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.RecyclerView
+import com.melongame.playlistmaker.R
+import com.melongame.playlistmaker.databinding.TrackListBinding
+import com.melongame.playlistmaker.mock.ListTrack
+import com.melongame.playlistmaker.tracks.TrackAdapter
 
 class SearchActivity : AppCompatActivity() {
 
     private var str: CharSequence? = null
     private lateinit var inputEditText: EditText
+    private lateinit var searchTracks: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,6 +54,10 @@ class SearchActivity : AppCompatActivity() {
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
 
+        searchTracks = findViewById(R.id.track_search)
+
+        searchTracks.adapter = TrackAdapter(ListTrack.tracks)
+
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -64,5 +74,4 @@ class SearchActivity : AppCompatActivity() {
     private companion object {
         const val SEARCH_NAME = "NAME"
     }
-
 }
