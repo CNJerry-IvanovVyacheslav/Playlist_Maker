@@ -39,7 +39,9 @@
 
         <EditText
             android:id="@+id/searchEditText"
-            style="@style/SearchBar" />
+            style="@style/SearchBar"
+            android:imeOptions="actionDone"
+            android:singleLine="true" />
 
         <LinearLayout
             android:id="@+id/clearIcon"
@@ -70,5 +72,51 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/track_list"
         android:layout_marginTop="@dimen/dimens_16dp" />
+
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/search_nothing"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            style="@style/SearchImage"
+            android:src="@drawable/nothing_was_found"/>
+        <TextView
+            style="@style/SearchText"
+            android:layout_marginTop="@dimen/dimens_238dp"
+            android:text="@string/text_nothing_was_found"/>
+    </FrameLayout>
+    <FrameLayout
+        android:visibility="gone"
+        android:id="@+id/connect_trouble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            style="@style/SearchImage"
+            android:src="@drawable/no_internet"/>
+        <TextView
+            style="@style/SearchText"
+            android:layout_marginTop="@dimen/dimens_238dp"
+            android:text="@string/connection_trouble"/>
+        <TextView
+            style="@style/SearchText"
+            android:layout_marginTop="@dimen/dimens_282dp"
+            android:gravity="center"
+            android:text="@string/try_again"/>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/search_update_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cornerRadius="54dp"
+            android:backgroundTint="?attr/colorOnPrimary"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/update"
+            android:textAllCaps="false"
+            android:textColor="?attr/colorPrimary"
+            android:layout_marginTop="@dimen/dimens_346dp"
+            android:fontFamily="@font/ys_display_medium"
+            android:textSize="@dimen/dimens_14sp"
+            android:padding="@dimen/dimens_8sp"/>
+    </FrameLayout>
 
 </LinearLayout>
