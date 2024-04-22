@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -28,11 +27,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SearchActivity : AppCompatActivity() {
 
     private var str: CharSequence? = null
-    private var searchText = ""
+
     private lateinit var inputEditText: EditText
     private lateinit var searchTracks: RecyclerView
     private lateinit var searchNothing: FrameLayout
     private lateinit var connectTrouble: FrameLayout
+    private lateinit var textOfSearch: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,6 +41,7 @@ class SearchActivity : AppCompatActivity() {
         inputEditText = findViewById(R.id.searchEditText)
         searchNothing = findViewById(R.id.search_nothing)
         connectTrouble = findViewById(R.id.connect_trouble)
+        searchTracks = findViewById(R.id.track_search)
 
         val updateButton = findViewById<Button>(R.id.search_update_button)
         val backButton = findViewById<ImageView>(R.id.back_light)
@@ -54,8 +55,8 @@ class SearchActivity : AppCompatActivity() {
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val searchText = inputEditText.text.toString()
-                searchTracks(searchText)
+                textOfSearch = inputEditText.text.toString()
+                searchTracks(textOfSearch)
                 hideKeyboard()
                 true
             } else {
@@ -68,14 +69,13 @@ class SearchActivity : AppCompatActivity() {
         }
 
         updateButton.setOnClickListener {
-            searchTracks(searchText)
+            searchTracks(textOfSearch)
         }
 
         buttonClear.setOnClickListener {
             inputEditText.setText("")
             hideKeyboard()
         }
-
 
 
         val simpleTextWatcher = object : TextWatcher {
@@ -85,16 +85,13 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 str = s
                 buttonClear.isVisible = !s.isNullOrEmpty()
-                searchTracks(searchText)
+                searchTracks(SEARCH_TEXT_DEF)
             }
 
             override fun afterTextChanged(s: Editable?) {
             }
         }
         inputEditText.addTextChangedListener(simpleTextWatcher)
-
-        searchTracks = findViewById(R.id.track_search)
-
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -108,11 +105,11 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setText(str)
     }
 
-    private fun searchTracks(searchText: String) {
-        if (searchText.isEmpty()) {
-            searchTracks.visibility = View.GONE
-            searchNothing.visibility = View.GONE
-            connectTrouble.visibility = View.GONE
+    private fun searchTracks(textOfSearch: String) {
+        if (textOfSearch.isEmpty()) {
+            searchTracks.isVisible = false
+            searchNothing.isVisible = false
+            connectTrouble.isVisible = false
             return
         }
 
@@ -122,8 +119,8 @@ class SearchActivity : AppCompatActivity() {
             .build()
         val iTunesApiService = retrofit.create(ITunesApiService::class.java)
 
-        if (searchText.isNotEmpty()) {
-            iTunesApiService.search(searchText).enqueue(object : Callback<TracksResponse> {
+        if (textOfSearch.isNotEmpty()) {
+            iTunesApiService.search(textOfSearch).enqueue(object : Callback<TracksResponse> {
                 override fun onResponse(
                     call: Call<TracksResponse>,
                     response: Response<TracksResponse>
@@ -135,28 +132,29 @@ class SearchActivity : AppCompatActivity() {
                             if (tracks.isNotEmpty()) {
                                 val adapter = TrackAdapter(tracks)
                                 searchTracks.adapter = adapter
-                                searchTracks.visibility = View.VISIBLE
-                                searchNothing.visibility = View.GONE
-                                connectTrouble.visibility = View.GONE
+                                searchTracks.isVisible = true
+                                searchNothing.isVisible = false
+                                connectTrouble.isVisible = false
                             } else {
-                                searchTracks.visibility = View.GONE
-                                searchNothing.visibility = View.VISIBLE
-                                connectTrouble.visibility = View.GONE
+                                searchTracks.isVisible = false
+                                searchNothing.isVisible = true
+                                connectTrouble.isVisible = false
                             }
                         }
                     }
                 }
 
                 override fun onFailure(call: Call<TracksResponse>, t: Throwable) {
-                    searchTracks.visibility = View.GONE
-                    searchNothing.visibility = View.GONE
-                    connectTrouble.visibility = View.VISIBLE
+                    searchTracks.isVisible = false
+                    searchNothing.isVisible = false
+                    connectTrouble.isVisible = true
                 }
             })
         }
     }
 
     private companion object {
+        const val SEARCH_TEXT_DEF: String = ""
         const val SEARCH_NAME = "NAME"
         const val BASE_URL = "https://itunes.apple.com"
     }
