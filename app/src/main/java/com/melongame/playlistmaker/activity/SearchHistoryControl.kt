@@ -8,7 +8,8 @@ import com.melongame.playlistmaker.tracks.TrackAdapter
 
 class SearchHistoryControl(context: Context) {
 
-    private val sharedPreferences = context.getSharedPreferences("SearchHistory", Context.MODE_PRIVATE)
+    private val sharedPreferences =
+        context.getSharedPreferences("SearchHistory", Context.MODE_PRIVATE)
     private val gson = Gson()
 
     var historyAdapter: TrackAdapter? = null

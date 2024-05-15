@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/search_bar_8dp"
     android:theme="@style/Theme.PlaylistMaker">
 
-    <LinearLayout
-        style="@style/TracksLinearLayout">
+    <LinearLayout style="@style/TracksLinearLayout">
 
         <ImageView
             android:id="@+id/track_image"
             style="@style/TracksImage"
-            tools:src="@drawable/placeholder"/>
+            tools:src="@drawable/placeholder" />
 
         <LinearLayout style="@style/TracksLinearLayout.vertical">
 

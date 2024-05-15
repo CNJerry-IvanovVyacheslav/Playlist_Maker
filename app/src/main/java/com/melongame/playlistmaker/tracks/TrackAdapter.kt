@@ -22,7 +22,7 @@ class TrackAdapter(
 
         val view = LayoutInflater
             .from(parent.context)
-            .inflate(R.layout.track_list, parent,false)
+            .inflate(R.layout.track_list, parent, false)
         return TrackViewHolder(view, imageCornersDp)
     }
 

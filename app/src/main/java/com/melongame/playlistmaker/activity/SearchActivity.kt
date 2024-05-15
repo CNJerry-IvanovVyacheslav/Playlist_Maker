@@ -76,9 +76,10 @@ class SearchActivity : AppCompatActivity() {
             }
         }
 
-        inputEditText.setOnFocusChangeListener{ _, hasFocus ->
+        inputEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && textOfSearch.isEmpty()) {
-                searchHistoryLinearLayout.isVisible = searchHistoryControl.getSearchHistory().isNotEmpty()
+                searchHistoryLinearLayout.isVisible =
+                    searchHistoryControl.getSearchHistory().isNotEmpty()
             } else {
                 searchHistoryLinearLayout.isVisible = false
             }
@@ -112,7 +113,8 @@ class SearchActivity : AppCompatActivity() {
                 buttonClear.isVisible = !s.isNullOrEmpty()
                 searchTracks(SEARCH_TEXT_DEF)
                 if (textOfSearch.isEmpty()) {
-                    searchHistoryLinearLayout.isVisible = searchHistoryControl.getSearchHistory().isNotEmpty()
+                    searchHistoryLinearLayout.isVisible =
+                        searchHistoryControl.getSearchHistory().isNotEmpty()
                 } else {
                     searchHistoryLinearLayout.isVisible = false
                 }
