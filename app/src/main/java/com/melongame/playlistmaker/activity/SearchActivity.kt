@@ -1,9 +1,11 @@
 package com.melongame.playlistmaker.activity
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -13,6 +15,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.tracks.ITunesApiService
@@ -27,25 +30,34 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SearchActivity : AppCompatActivity() {
 
     private var str: CharSequence? = null
-
+    private var textOfSearch: String = ""
     private lateinit var inputEditText: EditText
     private lateinit var searchTracks: RecyclerView
     private lateinit var searchNothing: FrameLayout
     private lateinit var connectTrouble: FrameLayout
-    private lateinit var textOfSearch: String
+    private lateinit var searchHistoryLinearLayout: LinearLayout
+    private lateinit var historyRecyclerView: RecyclerView
+    private lateinit var searchHistoryControl: SearchHistoryControl
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        searchHistoryControl = SearchHistoryControl(this)
+        searchHistoryLinearLayout = findViewById(R.id.search_history_linear_layout)
+        initHistoryRecycler()
+
 
         inputEditText = findViewById(R.id.searchEditText)
         searchNothing = findViewById(R.id.search_nothing)
         connectTrouble = findViewById(R.id.connect_trouble)
         searchTracks = findViewById(R.id.track_search)
 
+
         val updateButton = findViewById<Button>(R.id.search_update_button)
         val backButton = findViewById<ImageView>(R.id.back_light)
         val buttonClear = findViewById<LinearLayout>(R.id.clearIcon)
+        val clearHistoryButton = findViewById<Button>(R.id.clear_history_button)
 
         fun hideKeyboard() {
             val inputMethodManager =
@@ -55,13 +67,27 @@ class SearchActivity : AppCompatActivity() {
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                textOfSearch = inputEditText.text.toString()
+                val textOfSearch = inputEditText.text.toString()
                 searchTracks(textOfSearch)
                 hideKeyboard()
                 true
             } else {
                 false
             }
+        }
+
+        inputEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus && textOfSearch.isEmpty()) {
+                searchHistoryLinearLayout.isVisible =
+                    searchHistoryControl.getSearchHistory().isNotEmpty()
+            } else {
+                searchHistoryLinearLayout.isVisible = false
+            }
+        }
+
+        clearHistoryButton.setOnClickListener {
+            searchHistoryControl.clearSearchHistory()
+            searchHistoryLinearLayout.isVisible = false
         }
 
         backButton.setOnClickListener {
@@ -86,6 +112,12 @@ class SearchActivity : AppCompatActivity() {
                 str = s
                 buttonClear.isVisible = !s.isNullOrEmpty()
                 searchTracks(SEARCH_TEXT_DEF)
+                if (textOfSearch.isEmpty()) {
+                    searchHistoryLinearLayout.isVisible =
+                        searchHistoryControl.getSearchHistory().isNotEmpty()
+                } else {
+                    searchHistoryLinearLayout.isVisible = false
+                }
             }
 
             override fun afterTextChanged(s: Editable?) {
@@ -105,6 +137,15 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setText(str)
     }
 
+    private fun initHistoryRecycler() {
+        historyRecyclerView = findViewById(R.id.history_recycler_view)
+        historyRecyclerView.layoutManager = LinearLayoutManager(this)
+        val searchHistory = searchHistoryControl.getSearchHistory().toList()
+        val historyAdapter = TrackAdapter(searchHistory, searchHistoryControl)
+        historyRecyclerView.adapter = historyAdapter
+        searchHistoryControl.historyAdapter = historyAdapter
+    }
+
     private fun searchTracks(textOfSearch: String) {
         if (textOfSearch.isEmpty()) {
             searchTracks.isVisible = false
@@ -121,6 +162,7 @@ class SearchActivity : AppCompatActivity() {
 
         if (textOfSearch.isNotEmpty()) {
             iTunesApiService.search(textOfSearch).enqueue(object : Callback<TracksResponse> {
+                @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(
                     call: Call<TracksResponse>,
                     response: Response<TracksResponse>
@@ -128,9 +170,9 @@ class SearchActivity : AppCompatActivity() {
                     if (response.isSuccessful) {
                         val trackResult = response.body()
                         if (trackResult != null) {
-                            val tracks = trackResult.results
+                            val tracks = trackResult.results.toList()
                             if (tracks.isNotEmpty()) {
-                                val adapter = TrackAdapter(tracks)
+                                val adapter = TrackAdapter(tracks, searchHistoryControl)
                                 searchTracks.adapter = adapter
                                 searchTracks.isVisible = true
                                 searchNothing.isVisible = false

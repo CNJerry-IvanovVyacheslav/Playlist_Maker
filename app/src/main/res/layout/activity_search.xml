@@ -13,9 +13,9 @@
 
         <ImageView
             android:id="@+id/back_light"
+            style="@style/BackArrowColor"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            style="@style/BackArrowColor"
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:clickable="true"
@@ -66,57 +66,98 @@
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/track_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/track_search"
+        android:layout_marginTop="@dimen/dimens_16dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/track_list"
-        android:layout_marginTop="@dimen/dimens_16dp" />
+        tools:listitem="@layout/track_list" />
+
+    <LinearLayout
+        android:id="@+id/search_history_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/search_history_text_view"
+            style="@style/SearchText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimens_42dp"
+            android:gravity="center"
+            android:text="@string/you_find" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/history_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/dimens_20sp"
+            android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/clear_history_button"
+            style="@style/SearchButton"
+            android:layout_marginTop="@dimen/dimens_24dp"
+            android:padding="@dimen/dimens_8sp"
+            android:text="@string/clear_history"
+            android:textAllCaps="false"
+            android:textSize="@dimen/dimens_14sp"
+            app:cornerRadius="35dp" />
+    </LinearLayout>
 
     <FrameLayout
-        android:visibility="gone"
         android:id="@+id/search_nothing"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
         <ImageView
             style="@style/SearchImage"
-            android:src="@drawable/nothing_was_found"/>
+            android:src="@drawable/nothing_was_found" />
+
         <TextView
             style="@style/SearchText"
             android:layout_marginTop="@dimen/dimens_238dp"
-            android:text="@string/text_nothing_was_found"/>
+            android:text="@string/text_nothing_was_found" />
     </FrameLayout>
+
     <FrameLayout
-        android:visibility="gone"
         android:id="@+id/connect_trouble"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
         <ImageView
             style="@style/SearchImage"
-            android:src="@drawable/no_internet"/>
+            android:src="@drawable/no_internet" />
+
         <TextView
             style="@style/SearchText"
             android:layout_marginTop="@dimen/dimens_238dp"
-            android:text="@string/connection_trouble"/>
+            android:text="@string/connection_trouble" />
+
         <TextView
             style="@style/SearchText"
             android:layout_marginTop="@dimen/dimens_282dp"
             android:gravity="center"
-            android:text="@string/try_again"/>
+            android:text="@string/try_again" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/search_update_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:cornerRadius="54dp"
-            android:backgroundTint="?attr/colorOnPrimary"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dimens_346dp"
+            android:backgroundTint="?attr/colorOnPrimary"
+            android:fontFamily="@font/ys_display_medium"
+            android:padding="@dimen/dimens_8sp"
             android:text="@string/update"
             android:textAllCaps="false"
             android:textColor="?attr/colorPrimary"
-            android:layout_marginTop="@dimen/dimens_346dp"
-            android:fontFamily="@font/ys_display_medium"
             android:textSize="@dimen/dimens_14sp"
-            android:padding="@dimen/dimens_8sp"/>
+            app:cornerRadius="54dp" />
     </FrameLayout>
 
 </LinearLayout>

@@ -1,25 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="@dimen/search_bar_8dp"
     android:theme="@style/Theme.PlaylistMaker">
 
-    <LinearLayout
-        style="@style/tracks_linear_layout">
+    <LinearLayout style="@style/TracksLinearLayout">
 
         <ImageView
             android:id="@+id/track_image"
-            style="@style/tracks_image"
-            tools:src="@drawable/placeholder"/>
+            style="@style/TracksImage"
+            tools:src="@drawable/placeholder" />
 
-        <LinearLayout style="@style/tracks_linear_layout.vertical">
+        <LinearLayout style="@style/TracksLinearLayout.vertical">
 
             <TextView
                 android:id="@+id/track_name"
-                style="@style/tracks_text"
+                style="@style/TracksText"
                 tools:text="Хорошее название" />
 
             <LinearLayout
@@ -29,14 +27,14 @@
 
                 <TextView
                     android:id="@+id/track_artist"
-                    style="@style/tracks_text.artist"
-                    android:layout_width="0dp"
+                    style="@style/TracksText.artist"
+                    android:layout_width="wrap_content"
                     android:layout_weight="1"
                     tools:text="Длинное прям ооооооооочень длинннннннннное нааааазаззазазвание" />
 
                 <TextView
                     android:id="@+id/track_time"
-                    style="@style/tracks_text.time"
+                    style="@style/TracksText.time"
                     tools:text="2:55" />
 
             </LinearLayout>
@@ -44,7 +42,7 @@
         </LinearLayout>
 
         <ImageView
-            style="@style/tracks_arrow"
+            style="@style/TracksArrow"
             android:layout_marginEnd="12dp" />
 
     </LinearLayout>
