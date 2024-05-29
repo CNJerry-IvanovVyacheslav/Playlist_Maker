@@ -141,7 +141,7 @@ class SearchActivity : AppCompatActivity() {
         historyRecyclerView = findViewById(R.id.history_recycler_view)
         historyRecyclerView.layoutManager = LinearLayoutManager(this)
         val searchHistory = searchHistoryControl.getSearchHistory().toList()
-        val historyAdapter = TrackAdapter(searchHistory, searchHistoryControl)
+        val historyAdapter = TrackAdapter(this, searchHistory, searchHistoryControl)
         historyRecyclerView.adapter = historyAdapter
         searchHistoryControl.historyAdapter = historyAdapter
     }
@@ -172,7 +172,8 @@ class SearchActivity : AppCompatActivity() {
                         if (trackResult != null) {
                             val tracks = trackResult.results.toList()
                             if (tracks.isNotEmpty()) {
-                                val adapter = TrackAdapter(tracks, searchHistoryControl)
+                                val adapter =
+                                    TrackAdapter(this@SearchActivity, tracks, searchHistoryControl)
                                 searchTracks.adapter = adapter
                                 searchTracks.isVisible = true
                                 searchNothing.isVisible = false
