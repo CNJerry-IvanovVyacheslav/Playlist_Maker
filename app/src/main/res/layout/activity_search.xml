@@ -40,6 +40,7 @@
         <EditText
             android:id="@+id/searchEditText"
             style="@style/SearchBar"
+            android:textCursorDrawable="@drawable/cursor_color"
             android:imeOptions="actionDone"
             android:singleLine="true" />
 
