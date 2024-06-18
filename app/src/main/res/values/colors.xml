@@ -7,6 +7,7 @@
     <color name="grey_icon">#AEAFB4</color>
     <color name="grey_search_bar">#E6E8EB</color>
     <color name="track_arrow">#3772E7</color>
+    <color name="progress_bar_color">#6200EE</color>
 
 
 </resources>

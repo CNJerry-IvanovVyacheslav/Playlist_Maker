@@ -161,4 +161,14 @@
             app:cornerRadius="54dp" />
     </FrameLayout>
 
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_marginTop="@dimen/dimens_140dp"
+        android:layout_width="@dimen/dimens_44dp"
+        android:layout_height="@dimen/dimens_44dp"
+        android:indeterminateTint="@color/progress_bar_color"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        style="?android:attr/progressBarStyle"/>
+
 </LinearLayout>

@@ -21,4 +21,5 @@
     <dimen name="dimens_48dp">48dp</dimen>
     <dimen name="dimens_12dp">12dp</dimen>
     <dimen name="dimens_18dp">18dp</dimen>
+    <dimen name="dimens_140dp">140dp</dimen>
 </resources>
