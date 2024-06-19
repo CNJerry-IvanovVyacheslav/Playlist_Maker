@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/Theme.PlaylistMaker"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/Theme.PlaylistMaker">
 
 
     <LinearLayout
@@ -12,18 +12,18 @@
 
         <ImageView
             android:id="@+id/back_light"
+            style="@style/BackArrowColor"
             android:layout_width="48dp"
             android:layout_height="48dp"
-            style="@style/BackArrowColor"
-            android:layout_marginTop="4dp"
             android:layout_marginStart="4dp"
-            android:src="@drawable/back_light"
-            android:clickable="true"/>
+            android:layout_marginTop="4dp"
+            android:clickable="true"
+            android:src="@drawable/back_light" />
 
         <TextView
             style="@style/PageTitle"
             android:layout_gravity="center_vertical"
-            android:text="@string/settings"/>
+            android:text="@string/settings" />
 
     </LinearLayout>
 
@@ -39,7 +39,8 @@
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/themeSwitcher"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:theme="@style/SwitchColor" />
 
     </FrameLayout>
 
@@ -51,6 +52,7 @@
         <TextView
             style="@style/SettingsMenu"
             android:text="@string/share" />
+
         <ImageView
             style="@style/IconInSettings"
             android:src="@drawable/share_light" />
@@ -64,9 +66,10 @@
         <TextView
             style="@style/SettingsMenu"
             android:text="@string/support" />
+
         <ImageView
             style="@style/IconInSettings"
-            android:src="@drawable/support_light"/>
+            android:src="@drawable/support_light" />
 
     </FrameLayout>
 
@@ -81,7 +84,7 @@
 
         <ImageView
             style="@style/IconInSettings"
-            android:src="@drawable/forward_light"/>
+            android:src="@drawable/forward_light" />
 
     </FrameLayout>
 </LinearLayout>

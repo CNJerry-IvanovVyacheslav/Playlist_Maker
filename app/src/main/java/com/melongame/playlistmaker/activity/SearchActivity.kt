@@ -161,6 +161,7 @@ class SearchActivity : AppCompatActivity() {
 
     private fun searchTracks(textOfSearch: String) {
         progressBar.isVisible = true
+        searchHistoryLinearLayout.isVisible = false
         if (textOfSearch.isEmpty()) {
             searchTracks.isVisible = false
             searchNothing.isVisible = false

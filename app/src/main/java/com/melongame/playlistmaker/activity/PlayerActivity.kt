@@ -22,19 +22,13 @@ class PlayerActivity : AppCompatActivity() {
     private lateinit var playerPlayTrack: ImageButton
     private lateinit var playerTime: TextView
     private lateinit var handler: Handler
-    private lateinit var updateSeekBar: Runnable
+    private var updateSeekBar = Runnable {}
     private val timeFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_player)
-
-        val backButton = findViewById<ImageButton>(R.id.player_back_button)
-
-        backButton.setOnClickListener {
-            finish()
-        }
 
         val trackName = intent.getStringExtra("trackName")
         val artistName = intent.getStringExtra("artistName")
@@ -55,6 +49,11 @@ class PlayerActivity : AppCompatActivity() {
         val playerPrimaryGenre = findViewById<TextView>(R.id.player_primary_genre)
         val playerCountry = findViewById<TextView>(R.id.player_country_name)
         val playerArtworkImage = findViewById<ImageView>(R.id.player_image)
+        val backButton = findViewById<ImageButton>(R.id.player_back_button)
+
+        backButton.setOnClickListener {
+            finish()
+        }
 
         mediaPlayer = MediaPlayer()
         mediaPlayer.setDataSource(previewUrl)
@@ -111,8 +110,7 @@ class PlayerActivity : AppCompatActivity() {
     private fun updateSeekBar() {
         updateSeekBar = Runnable {
             val currentTime = mediaPlayer.currentPosition
-            playerTime.text =
-                SimpleDateFormat("mm:ss", Locale.getDefault()).format(currentTime.toLong())
+            playerTime.text = timeFormat.format(currentTime.toLong())
             handler.postDelayed(updateSeekBar, 1000)
         }
         handler.postDelayed(updateSeekBar, 0)
@@ -127,13 +125,13 @@ class PlayerActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        handler.removeCallbacks(updateSeekBar)
         mediaPlayer.pause()
         updatePlayPauseButton()
     }
 
     override fun onDestroy() {
         super.onDestroy()
+        handler.removeCallbacks(updateSeekBar)
         mediaPlayer.release()
     }
 }
