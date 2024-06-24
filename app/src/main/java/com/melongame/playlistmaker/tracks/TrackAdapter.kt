@@ -3,6 +3,8 @@ package com.melongame.playlistmaker.tracks
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -16,6 +18,15 @@ class TrackAdapter(
     private var tracks: List<Track>,
     private val searchHistoryControl: SearchHistoryControl?
 ) : Adapter<TrackViewHolder>() {
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
+    }
+
+    private var isClickAllowed = true
+
+    private val handler = Handler(Looper.getMainLooper())
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val imageCornersPx = parent
             .getResources()
@@ -34,8 +45,10 @@ class TrackAdapter(
         holder.bind(track)
 
         holder.itemView.setOnClickListener {
-            searchHistoryControl?.addToSearchHistory(track)
-            navigateToAudioPlayer(track)
+            if (clickDebounce()) {
+                searchHistoryControl?.addToSearchHistory(track)
+                navigateToAudioPlayer(track)
+            }
         }
     }
 
@@ -49,6 +62,15 @@ class TrackAdapter(
         notifyDataSetChanged()
     }
 
+    private fun clickDebounce(): Boolean {
+        val current = isClickAllowed
+        if (isClickAllowed) {
+            isClickAllowed = false
+            handler.postDelayed({ isClickAllowed = true }, CLICK_DEBOUNCE_DELAY)
+        }
+        return current
+    }
+
     private fun navigateToAudioPlayer(track: Track) {
         val intent = Intent(context, PlayerActivity::class.java)
         intent.putExtra("trackName", track.trackName)
@@ -59,6 +81,7 @@ class TrackAdapter(
         intent.putExtra("releaseDate", track.releaseDate)
         intent.putExtra("primaryGenreName", track.primaryGenreName)
         intent.putExtra("country", track.country)
+        intent.putExtra("previewUrl", track.previewUrl)
         context.startActivity(intent)
     }
 }

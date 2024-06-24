@@ -189,4 +189,10 @@
         <item name="android:fontFamily">@font/ys_display_regular</item>
 
     </style>
+
+    <style name="SwitchColor" parent="Theme.AppCompat.Light">
+        <item name="thumbTint">@color/background_light</item>
+        <item name="android:colorForeground">@color/grey_icon</item>
+
+    </style>
 </resources>

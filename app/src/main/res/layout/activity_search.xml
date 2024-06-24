@@ -40,9 +40,9 @@
         <EditText
             android:id="@+id/searchEditText"
             style="@style/SearchBar"
-            android:textCursorDrawable="@drawable/cursor_color"
             android:imeOptions="actionDone"
-            android:singleLine="true" />
+            android:singleLine="true"
+            android:textCursorDrawable="@drawable/cursor_color" />
 
         <LinearLayout
             android:id="@+id/clearIcon"
@@ -95,7 +95,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/dimens_20sp"
-            android:layout_weight="1"></androidx.recyclerview.widget.RecyclerView>
+            android:layout_weight="1" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/clear_history_button"
@@ -160,5 +160,15 @@
             android:textSize="@dimen/dimens_14sp"
             app:cornerRadius="54dp" />
     </FrameLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="@dimen/dimens_44dp"
+        android:layout_height="@dimen/dimens_44dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/dimens_140dp"
+        android:indeterminateTint="@color/track_arrow"
+        android:visibility="gone" />
 
 </LinearLayout>

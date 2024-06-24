@@ -3,6 +3,8 @@ package com.melongame.playlistmaker.activity
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -13,6 +15,7 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,6 +34,8 @@ class SearchActivity : AppCompatActivity() {
 
     private var str: CharSequence? = null
     private var textOfSearch: String = ""
+    private val handler = Handler(Looper.getMainLooper())
+    private val searchRunnable = Runnable { searchTracks(inputEditText.text.toString()) }
     private lateinit var inputEditText: EditText
     private lateinit var searchTracks: RecyclerView
     private lateinit var searchNothing: FrameLayout
@@ -38,6 +43,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchHistoryLinearLayout: LinearLayout
     private lateinit var historyRecyclerView: RecyclerView
     private lateinit var searchHistoryControl: SearchHistoryControl
+    private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +51,8 @@ class SearchActivity : AppCompatActivity() {
 
         searchHistoryControl = SearchHistoryControl(this)
         searchHistoryLinearLayout = findViewById(R.id.search_history_linear_layout)
+        progressBar = findViewById(R.id.progressBar)
+
         initHistoryRecycler()
 
 
@@ -111,7 +119,7 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 str = s
                 buttonClear.isVisible = !s.isNullOrEmpty()
-                searchTracks(SEARCH_TEXT_DEF)
+                searchDebounce()
                 if (textOfSearch.isEmpty()) {
                     searchHistoryLinearLayout.isVisible =
                         searchHistoryControl.getSearchHistory().isNotEmpty()
@@ -137,6 +145,11 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setText(str)
     }
 
+    private fun searchDebounce() {
+        handler.removeCallbacks(searchRunnable)
+        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+    }
+
     private fun initHistoryRecycler() {
         historyRecyclerView = findViewById(R.id.history_recycler_view)
         historyRecyclerView.layoutManager = LinearLayoutManager(this)
@@ -147,10 +160,13 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun searchTracks(textOfSearch: String) {
+        progressBar.isVisible = true
+        searchHistoryLinearLayout.isVisible = false
         if (textOfSearch.isEmpty()) {
             searchTracks.isVisible = false
             searchNothing.isVisible = false
             connectTrouble.isVisible = false
+            progressBar.isVisible = false
             return
         }
 
@@ -167,6 +183,7 @@ class SearchActivity : AppCompatActivity() {
                     call: Call<TracksResponse>,
                     response: Response<TracksResponse>
                 ) {
+                    progressBar.isVisible = false
                     if (response.isSuccessful) {
                         val trackResult = response.body()
                         if (trackResult != null) {
@@ -191,14 +208,15 @@ class SearchActivity : AppCompatActivity() {
                     searchTracks.isVisible = false
                     searchNothing.isVisible = false
                     connectTrouble.isVisible = true
+                    progressBar.isVisible = false
                 }
             })
         }
     }
 
     private companion object {
-        const val SEARCH_TEXT_DEF: String = ""
         const val SEARCH_NAME = "NAME"
         const val BASE_URL = "https://itunes.apple.com"
+        const val SEARCH_DEBOUNCE_DELAY = 2000L
     }
 }
