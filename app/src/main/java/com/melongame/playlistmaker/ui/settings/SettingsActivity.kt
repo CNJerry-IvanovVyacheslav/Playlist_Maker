@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.activity
+package com.melongame.playlistmaker.ui.settings
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import com.google.android.material.switchmaterial.SwitchMaterial
 import com.melongame.playlistmaker.R
+import com.melongame.playlistmaker.presentation.App
 
 class SettingsActivity :AppCompatActivity(){
     override fun onCreate(savedInstanceState:Bundle?){

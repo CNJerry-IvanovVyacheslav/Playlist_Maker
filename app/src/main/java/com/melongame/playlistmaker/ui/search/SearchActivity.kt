@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.activity
+package com.melongame.playlistmaker.ui.search
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -7,7 +7,6 @@ import android.os.Handler
 import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
@@ -21,9 +20,10 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.melongame.playlistmaker.R
-import com.melongame.playlistmaker.tracks.ITunesApiService
-import com.melongame.playlistmaker.tracks.TrackAdapter
-import com.melongame.playlistmaker.tracks.TracksResponse
+import com.melongame.playlistmaker.data.network.ITunesApiService
+import com.melongame.playlistmaker.presentation.SearchHistoryControl
+import com.melongame.playlistmaker.presentation.TrackAdapter
+import com.melongame.playlistmaker.presentation.TracksResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -108,6 +108,8 @@ class SearchActivity : AppCompatActivity() {
 
         buttonClear.setOnClickListener {
             inputEditText.setText("")
+            inputEditText.clearFocus()
+            searchDebounce(0)
             hideKeyboard()
         }
 
@@ -119,7 +121,7 @@ class SearchActivity : AppCompatActivity() {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 str = s
                 buttonClear.isVisible = !s.isNullOrEmpty()
-                searchDebounce()
+                searchDebounce(SEARCH_DEBOUNCE_DELAY)
                 if (textOfSearch.isEmpty()) {
                     searchHistoryLinearLayout.isVisible =
                         searchHistoryControl.getSearchHistory().isNotEmpty()
@@ -145,9 +147,9 @@ class SearchActivity : AppCompatActivity() {
         inputEditText.setText(str)
     }
 
-    private fun searchDebounce() {
+    private fun searchDebounce(mils: Long) {
         handler.removeCallbacks(searchRunnable)
-        handler.postDelayed(searchRunnable, SEARCH_DEBOUNCE_DELAY)
+        handler.postDelayed(searchRunnable, mils)
     }
 
     private fun initHistoryRecycler() {

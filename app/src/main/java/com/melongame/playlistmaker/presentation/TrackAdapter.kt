@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.tracks
+package com.melongame.playlistmaker.presentation
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -9,9 +9,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.melongame.playlistmaker.R
-import com.melongame.playlistmaker.activity.PlayerActivity
-import com.melongame.playlistmaker.activity.SearchHistoryControl
+import com.melongame.playlistmaker.ui.player.PlayerActivity
 import com.melongame.playlistmaker.additional_fun.dpToPx
+import com.melongame.playlistmaker.domain.models.Track
 
 class TrackAdapter(
     private var context: Context,
@@ -29,7 +29,7 @@ class TrackAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val imageCornersPx = parent
-            .getResources()
+            .resources
             .getDimension(R.dimen.dimens_2dp)
 
         val imageCornersDp = dpToPx(imageCornersPx, parent.context)
@@ -73,15 +73,7 @@ class TrackAdapter(
 
     private fun navigateToAudioPlayer(track: Track) {
         val intent = Intent(context, PlayerActivity::class.java)
-        intent.putExtra("trackName", track.trackName)
-        intent.putExtra("artistName", track.artistName)
-        intent.putExtra("trackTimeMillis", track.trackTimeMillis)
-        intent.putExtra("artworkUrl100", track.artworkUrl100)
-        intent.putExtra("collectionName", track.collectionName)
-        intent.putExtra("releaseDate", track.releaseDate)
-        intent.putExtra("primaryGenreName", track.primaryGenreName)
-        intent.putExtra("country", track.country)
-        intent.putExtra("previewUrl", track.previewUrl)
+        intent.putExtra("track", track)
         context.startActivity(intent)
     }
 }
