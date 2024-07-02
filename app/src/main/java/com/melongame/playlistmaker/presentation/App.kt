@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.activity
+package com.melongame.playlistmaker.presentation
 
 import android.app.Application
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.activity
+package com.melongame.playlistmaker.ui.media
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity

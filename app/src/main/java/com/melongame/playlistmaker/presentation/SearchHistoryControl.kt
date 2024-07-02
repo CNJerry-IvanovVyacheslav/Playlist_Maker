@@ -1,10 +1,9 @@
-package com.melongame.playlistmaker.activity
+package com.melongame.playlistmaker.presentation
 
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.melongame.playlistmaker.tracks.Track
-import com.melongame.playlistmaker.tracks.TrackAdapter
+import com.melongame.playlistmaker.domain.models.Track
 
 class SearchHistoryControl(context: Context) {
 
