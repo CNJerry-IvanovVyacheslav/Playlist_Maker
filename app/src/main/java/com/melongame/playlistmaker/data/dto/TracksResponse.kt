@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.presentation
+package com.melongame.playlistmaker.data.dto
 
 import com.melongame.playlistmaker.domain.models.Track
 

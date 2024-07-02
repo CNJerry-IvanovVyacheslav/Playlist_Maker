@@ -1,6 +1,6 @@
 package com.melongame.playlistmaker.data.network
 
-import com.melongame.playlistmaker.presentation.TracksResponse
+import com.melongame.playlistmaker.data.dto.TracksResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query

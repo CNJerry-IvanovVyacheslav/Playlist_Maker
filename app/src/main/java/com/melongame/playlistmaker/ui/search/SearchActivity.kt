@@ -23,7 +23,7 @@ import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.data.network.ITunesApiService
 import com.melongame.playlistmaker.presentation.SearchHistoryControl
 import com.melongame.playlistmaker.presentation.TrackAdapter
-import com.melongame.playlistmaker.presentation.TracksResponse
+import com.melongame.playlistmaker.data.dto.TracksResponse
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

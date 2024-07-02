@@ -1,5 +1,7 @@
 package com.melongame.playlistmaker.ui.player
 
+import android.media.MediaPlayer
+import android.media.MediaPlayer.OnCompletionListener
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -14,9 +16,9 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.additional_fun.dpToPx
 import com.melongame.playlistmaker.domain.api.MediaPlayerInteractor
-import com.melongame.playlistmaker.domain.impl.MediaPlayerInteractorImpl
-import com.melongame.playlistmaker.domain.models.Track
+import com.melongame.playlistmaker.data.MediaPlayerInteractorImpl
 import com.melongame.playlistmaker.additional_fun.timeFormat
+import com.melongame.playlistmaker.domain.models.Track
 
 class PlayerActivity : AppCompatActivity() {
     private lateinit var mediaPlayerInteractor: MediaPlayerInteractor
@@ -78,7 +80,6 @@ class PlayerActivity : AppCompatActivity() {
                 }
                 updatePlayPauseButton()
             }
-
             mediaPlayerInteractor.setOnCompletionListener {
                 playerTimePlnw.text = timeFormat.format(0)
                 mediaPlayerInteractor.seekTo(0)

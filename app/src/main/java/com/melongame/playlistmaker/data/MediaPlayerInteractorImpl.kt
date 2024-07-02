@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.domain.impl
+package com.melongame.playlistmaker.data
 
 import android.media.MediaPlayer
 import com.melongame.playlistmaker.domain.api.MediaPlayerInteractor
@@ -36,12 +36,12 @@ class MediaPlayerInteractorImpl : MediaPlayerInteractor {
         return mediaPlayer.isPlaying
     }
 
-    override fun setOnCompletionListener(listener: MediaPlayer.OnCompletionListener) {
-        mediaPlayer.setOnCompletionListener(listener)
-    }
-
     override fun release() {
         mediaPlayer.release()
+    }
+
+    override fun setOnCompletionListener(listener: () -> Unit) {
+        mediaPlayer.setOnCompletionListener { listener() }
     }
 
 }
