@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.ui.player.PlayerActivity
 import com.melongame.playlistmaker.additional_fun.dpToPx
+import com.melongame.playlistmaker.data.dto.SearchHistoryControl
 import com.melongame.playlistmaker.domain.models.Track
 
 class TrackAdapter(

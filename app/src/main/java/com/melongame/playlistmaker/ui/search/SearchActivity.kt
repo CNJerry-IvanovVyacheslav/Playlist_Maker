@@ -21,7 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.data.network.ITunesApiService
-import com.melongame.playlistmaker.presentation.SearchHistoryControl
+import com.melongame.playlistmaker.data.dto.SearchHistoryControl
 import com.melongame.playlistmaker.presentation.TrackAdapter
 import com.melongame.playlistmaker.data.dto.TracksResponse
 import retrofit2.Call
@@ -183,7 +183,7 @@ class SearchActivity : AppCompatActivity() {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(
                     call: Call<TracksResponse>,
-                    response: Response<TracksResponse>
+                    response: Response<TracksResponse>,
                 ) {
                     progressBar.isVisible = false
                     if (response.isSuccessful) {

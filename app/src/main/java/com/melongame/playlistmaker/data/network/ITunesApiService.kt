@@ -10,6 +10,6 @@ interface ITunesApiService {
     fun search(
         @Query("term") text: String,
         @Query("media") media: String = "music",
-        @Query("entity") entity: String = "song"
+        @Query("entity") entity: String = "song",
     ): Call<TracksResponse>
 }

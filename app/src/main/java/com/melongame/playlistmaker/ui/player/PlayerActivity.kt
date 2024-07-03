@@ -1,7 +1,5 @@
 package com.melongame.playlistmaker.ui.player
 
-import android.media.MediaPlayer
-import android.media.MediaPlayer.OnCompletionListener
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
