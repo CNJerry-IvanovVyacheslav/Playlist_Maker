@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.ui.player.PlayerActivity
 import com.melongame.playlistmaker.additional_fun.dpToPx
+import com.melongame.playlistmaker.data.TrackAdapterRepositoryImpl
 import com.melongame.playlistmaker.data.dto.SearchHistoryControl
 import com.melongame.playlistmaker.domain.models.Track
 
@@ -19,14 +20,10 @@ class TrackAdapter(
     private var tracks: List<Track>,
     private val searchHistoryControl: SearchHistoryControl?
 ) : Adapter<TrackViewHolder>() {
-
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
-    }
-
     private var isClickAllowed = true
-
     private val handler = Handler(Looper.getMainLooper())
+    var trackAdapterRepository = TrackAdapterRepositoryImpl()
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val imageCornersPx = parent
@@ -34,7 +31,6 @@ class TrackAdapter(
             .getDimension(R.dimen.dimens_2dp)
 
         val imageCornersDp = dpToPx(imageCornersPx, parent.context)
-
         val view = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.track_list, parent, false)
@@ -44,23 +40,15 @@ class TrackAdapter(
     override fun onBindViewHolder(holder: TrackViewHolder, position: Int) {
         val track = tracks[position]
         holder.bind(track)
-
         holder.itemView.setOnClickListener {
             if (clickDebounce()) {
-                searchHistoryControl?.addToSearchHistory(track)
+                tracks = searchHistoryControl?.addToSearchHistory(track)!!
                 navigateToAudioPlayer(track)
             }
         }
     }
-
     override fun getItemCount(): Int {
         return tracks.size
-    }
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun updateTracks(newTracks: MutableList<Track>) {
-        tracks = newTracks
-        notifyDataSetChanged()
     }
 
     private fun clickDebounce(): Boolean {
@@ -76,5 +64,9 @@ class TrackAdapter(
         val intent = Intent(context, PlayerActivity::class.java)
         intent.putExtra("track", track)
         context.startActivity(intent)
+    }
+
+    companion object {
+        private const val CLICK_DEBOUNCE_DELAY = 1000L
     }
 }

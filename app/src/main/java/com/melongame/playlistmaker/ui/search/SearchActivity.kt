@@ -2,6 +2,7 @@ package com.melongame.playlistmaker.ui.search
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -31,7 +32,6 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class SearchActivity : AppCompatActivity() {
-
     private var str: CharSequence? = null
     private var textOfSearch: String = ""
     private val handler = Handler(Looper.getMainLooper())
@@ -44,35 +44,26 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var historyRecyclerView: RecyclerView
     private lateinit var searchHistoryControl: SearchHistoryControl
     private lateinit var progressBar: ProgressBar
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
-
         searchHistoryControl = SearchHistoryControl(this)
         searchHistoryLinearLayout = findViewById(R.id.search_history_linear_layout)
         progressBar = findViewById(R.id.progressBar)
-
         initHistoryRecycler()
-
-
         inputEditText = findViewById(R.id.searchEditText)
         searchNothing = findViewById(R.id.search_nothing)
         connectTrouble = findViewById(R.id.connect_trouble)
         searchTracks = findViewById(R.id.track_search)
-
-
         val updateButton = findViewById<Button>(R.id.search_update_button)
         val backButton = findViewById<ImageView>(R.id.back_light)
         val buttonClear = findViewById<LinearLayout>(R.id.clearIcon)
         val clearHistoryButton = findViewById<Button>(R.id.clear_history_button)
-
         fun hideKeyboard() {
             val inputMethodManager =
                 getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
             inputMethodManager?.hideSoftInputFromWindow(inputEditText.windowToken, 0)
         }
-
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val textOfSearch = inputEditText.text.toString()
@@ -83,7 +74,6 @@ class SearchActivity : AppCompatActivity() {
                 false
             }
         }
-
         inputEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus && textOfSearch.isEmpty()) {
                 searchHistoryLinearLayout.isVisible =
@@ -92,16 +82,13 @@ class SearchActivity : AppCompatActivity() {
                 searchHistoryLinearLayout.isVisible = false
             }
         }
-
         clearHistoryButton.setOnClickListener {
             searchHistoryControl.clearSearchHistory()
             searchHistoryLinearLayout.isVisible = false
         }
-
         backButton.setOnClickListener {
             finish()
         }
-
         updateButton.setOnClickListener {
             searchTracks(textOfSearch)
         }
@@ -112,7 +99,6 @@ class SearchActivity : AppCompatActivity() {
             searchDebounce(0)
             hideKeyboard()
         }
-
 
         val simpleTextWatcher = object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
@@ -158,7 +144,6 @@ class SearchActivity : AppCompatActivity() {
         val searchHistory = searchHistoryControl.getSearchHistory().toList()
         val historyAdapter = TrackAdapter(this, searchHistory, searchHistoryControl)
         historyRecyclerView.adapter = historyAdapter
-        searchHistoryControl.historyAdapter = historyAdapter
     }
 
     private fun searchTracks(textOfSearch: String) {
@@ -171,13 +156,9 @@ class SearchActivity : AppCompatActivity() {
             progressBar.isVisible = false
             return
         }
-
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create()).build()
         val iTunesApiService = retrofit.create(ITunesApiService::class.java)
-
         if (textOfSearch.isNotEmpty()) {
             iTunesApiService.search(textOfSearch).enqueue(object : Callback<TracksResponse> {
                 @SuppressLint("NotifyDataSetChanged")
@@ -191,8 +172,9 @@ class SearchActivity : AppCompatActivity() {
                         if (trackResult != null) {
                             val tracks = trackResult.results.toList()
                             if (tracks.isNotEmpty()) {
-                                val adapter =
-                                    TrackAdapter(this@SearchActivity, tracks, searchHistoryControl)
+                                val adapter = TrackAdapter(
+                                    this@SearchActivity, tracks, searchHistoryControl
+                                )
                                 searchTracks.adapter = adapter
                                 searchTracks.isVisible = true
                                 searchNothing.isVisible = false

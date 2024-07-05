@@ -1,15 +1,14 @@
 package com.melongame.playlistmaker.data
 
-import android.media.MediaPlayer
-import com.melongame.playlistmaker.domain.api.MediaPlayerInteractor
+import com.melongame.playlistmaker.Creator
+import com.melongame.playlistmaker.domain.api.MediaPlayerRepository
 
-class MediaPlayerInteractorImpl : MediaPlayerInteractor {
-    private lateinit var mediaPlayer: MediaPlayer
+class MediaPlayerRepositoryImpl : MediaPlayerRepository {
+
+    private val mediaPlayer = Creator.getMediaPlayer()
 
     override fun setDataSource(url: String) {
-        mediaPlayer = MediaPlayer()
         mediaPlayer.setDataSource(url)
-        mediaPlayer.prepareAsync()
     }
 
     override fun prepareAsync() {

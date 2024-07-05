@@ -11,19 +11,19 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.melongame.playlistmaker.Creator
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.additional_fun.dpToPx
-import com.melongame.playlistmaker.domain.api.MediaPlayerInteractor
-import com.melongame.playlistmaker.data.MediaPlayerInteractorImpl
 import com.melongame.playlistmaker.additional_fun.timeFormat
 import com.melongame.playlistmaker.domain.models.Track
 
 class PlayerActivity : AppCompatActivity() {
-    private lateinit var mediaPlayerInteractor: MediaPlayerInteractor
+
     private lateinit var playerPlayTrack: ImageButton
     private lateinit var playerTimePlnw: TextView
     private lateinit var handler: Handler
     private var updateSeekBar = Runnable {}
+    private val mediaPlayer = Creator.provideMediaPlayerInteractor()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,9 +36,9 @@ class PlayerActivity : AppCompatActivity() {
         }
 
         val track = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("track", Track::class.java)
+            intent.getParcelableExtra(NAME_FOR_INTENT, Track::class.java)
         } else {
-            intent.getParcelableExtra<Track>("track")
+            intent.getParcelableExtra<Track>(NAME_FOR_INTENT)
         }
 
         if (track != null) {
@@ -62,25 +62,25 @@ class PlayerActivity : AppCompatActivity() {
             val playerCountry = findViewById<TextView>(R.id.player_country_name)
             val playerArtworkImage = findViewById<ImageView>(R.id.player_image)
 
-            mediaPlayerInteractor = MediaPlayerInteractorImpl()
-            mediaPlayerInteractor.setDataSource(previewUrl)
+            mediaPlayer.setDataSource(previewUrl)
+            mediaPlayer.prepareAsync()
 
             playerPlayTrack = findViewById(R.id.player_play_track)
             playerTimePlnw = findViewById(R.id.player_time)
             handler = Handler(Looper.getMainLooper())
 
             playerPlayTrack.setOnClickListener {
-                if (mediaPlayerInteractor.isPlaying()) {
-                    mediaPlayerInteractor.pause()
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.pause()
                 } else {
-                    mediaPlayerInteractor.start()
+                    mediaPlayer.start()
                     updateSeekBar()
                 }
                 updatePlayPauseButton()
             }
-            mediaPlayerInteractor.setOnCompletionListener {
+            mediaPlayer.setOnCompletionListener {
                 playerTimePlnw.text = timeFormat.format(0)
-                mediaPlayerInteractor.seekTo(0)
+                mediaPlayer.seekTo(0)
                 updatePlayPauseButton()
             }
 
@@ -100,7 +100,7 @@ class PlayerActivity : AppCompatActivity() {
             playerCountry.text = country
 
             Glide.with(this)
-                .load(artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
+                .load(artworkUrl100.replaceAfterLast(DELIMITER, REPLACEMENT))
                 .centerCrop()
                 .transform(RoundedCorners(dpToPx(8f, this)))
                 .placeholder(R.drawable.placeholder_big)
@@ -109,14 +109,14 @@ class PlayerActivity : AppCompatActivity() {
     }
 
     private fun updatePlayPauseButton() {
-        val isPlaying = mediaPlayerInteractor.isPlaying()
+        val isPlaying = mediaPlayer.isPlaying()
         val iconResource = if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_track
         playerPlayTrack.setImageResource(iconResource)
     }
 
     private fun updateSeekBar() {
         updateSeekBar = Runnable {
-            val currentTime = mediaPlayerInteractor.getCurrentPosition()
+            val currentTime = mediaPlayer.getCurrentPosition()
             playerTimePlnw.text = timeFormat.format(currentTime.toLong())
             handler.postDelayed(updateSeekBar, 1000)
         }
@@ -126,12 +126,18 @@ class PlayerActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         handler.removeCallbacks(updateSeekBar)
-        mediaPlayerInteractor.pause()
+        mediaPlayer.pause()
         updatePlayPauseButton()
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mediaPlayerInteractor.release()
+        mediaPlayer.release()
+    }
+
+    companion object {
+        private const val NAME_FOR_INTENT = "track"
+        private const val DELIMITER = '/'
+        private const val REPLACEMENT = "512x512bb.jpg"
     }
 }
