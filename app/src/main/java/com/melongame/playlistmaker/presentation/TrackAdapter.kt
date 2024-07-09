@@ -1,6 +1,5 @@
 package com.melongame.playlistmaker.presentation
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Handler
@@ -11,19 +10,18 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.ui.player.PlayerActivity
 import com.melongame.playlistmaker.additional_fun.dpToPx
-import com.melongame.playlistmaker.data.TrackAdapterRepositoryImpl
+
 import com.melongame.playlistmaker.data.dto.SearchHistoryControl
 import com.melongame.playlistmaker.domain.models.Track
 
 class TrackAdapter(
     private var context: Context,
-    private var tracks: List<Track>,
-    private val searchHistoryControl: SearchHistoryControl?
+    var tracks: List<Track>,
+    private val searchHistoryControl: SearchHistoryControl?,
 ) : Adapter<TrackViewHolder>() {
+
     private var isClickAllowed = true
     private val handler = Handler(Looper.getMainLooper())
-    var trackAdapterRepository = TrackAdapterRepositoryImpl()
-
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackViewHolder {
         val imageCornersPx = parent
@@ -42,13 +40,18 @@ class TrackAdapter(
         holder.bind(track)
         holder.itemView.setOnClickListener {
             if (clickDebounce()) {
-                tracks = searchHistoryControl?.addToSearchHistory(track)!!
+                searchHistoryControl?.addToSearchHistory(track)
                 navigateToAudioPlayer(track)
             }
         }
     }
+
     override fun getItemCount(): Int {
         return tracks.size
+    }
+
+    fun updateTracks(newTracks: MutableList<Track>) {
+        tracks = newTracks
     }
 
     private fun clickDebounce(): Boolean {
@@ -62,11 +65,13 @@ class TrackAdapter(
 
     private fun navigateToAudioPlayer(track: Track) {
         val intent = Intent(context, PlayerActivity::class.java)
-        intent.putExtra("track", track)
+        intent.putExtra(TRACK_NAME, track)
         context.startActivity(intent)
     }
 
-    companion object {
-        private const val CLICK_DEBOUNCE_DELAY = 1000L
+    private companion object {
+        const val CLICK_DEBOUNCE_DELAY = 1000L
+        const val TRACK_NAME = "track"
     }
+
 }

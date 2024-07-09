@@ -1,8 +1,7 @@
 package com.melongame.playlistmaker.ui.search
 
-import android.annotation.SuppressLint
+
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -43,6 +42,7 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchHistoryLinearLayout: LinearLayout
     private lateinit var historyRecyclerView: RecyclerView
     private lateinit var searchHistoryControl: SearchHistoryControl
+    private lateinit var trackAdapter: TrackAdapter
     private lateinit var progressBar: ProgressBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,6 +84,9 @@ class SearchActivity : AppCompatActivity() {
         }
         clearHistoryButton.setOnClickListener {
             searchHistoryControl.clearSearchHistory()
+            trackAdapter =
+                TrackAdapter(this, searchHistoryControl.getSearchHistory(), searchHistoryControl)
+            trackAdapter.updateTracks(mutableListOf())
             searchHistoryLinearLayout.isVisible = false
         }
         backButton.setOnClickListener {
@@ -106,6 +109,7 @@ class SearchActivity : AppCompatActivity() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 str = s
+                updateTracks()
                 buttonClear.isVisible = !s.isNullOrEmpty()
                 searchDebounce(SEARCH_DEBOUNCE_DELAY)
                 if (textOfSearch.isEmpty()) {
@@ -138,12 +142,18 @@ class SearchActivity : AppCompatActivity() {
         handler.postDelayed(searchRunnable, mils)
     }
 
+    private fun updateTracks() {
+        historyRecyclerView.adapter = TrackAdapter(
+            this@SearchActivity,
+            searchHistoryControl.getSearchHistory(),
+            searchHistoryControl
+        )
+    }
+
     private fun initHistoryRecycler() {
         historyRecyclerView = findViewById(R.id.history_recycler_view)
         historyRecyclerView.layoutManager = LinearLayoutManager(this)
-        val searchHistory = searchHistoryControl.getSearchHistory().toList()
-        val historyAdapter = TrackAdapter(this, searchHistory, searchHistoryControl)
-        historyRecyclerView.adapter = historyAdapter
+        updateTracks()
     }
 
     private fun searchTracks(textOfSearch: String) {
@@ -156,12 +166,13 @@ class SearchActivity : AppCompatActivity() {
             progressBar.isVisible = false
             return
         }
-        val retrofit = Retrofit.Builder().baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create()).build()
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
         val iTunesApiService = retrofit.create(ITunesApiService::class.java)
         if (textOfSearch.isNotEmpty()) {
             iTunesApiService.search(textOfSearch).enqueue(object : Callback<TracksResponse> {
-                @SuppressLint("NotifyDataSetChanged")
                 override fun onResponse(
                     call: Call<TracksResponse>,
                     response: Response<TracksResponse>,
@@ -172,9 +183,8 @@ class SearchActivity : AppCompatActivity() {
                         if (trackResult != null) {
                             val tracks = trackResult.results.toList()
                             if (tracks.isNotEmpty()) {
-                                val adapter = TrackAdapter(
-                                    this@SearchActivity, tracks, searchHistoryControl
-                                )
+                                val adapter =
+                                    TrackAdapter(this@SearchActivity, tracks, searchHistoryControl)
                                 searchTracks.adapter = adapter
                                 searchTracks.isVisible = true
                                 searchNothing.isVisible = false
