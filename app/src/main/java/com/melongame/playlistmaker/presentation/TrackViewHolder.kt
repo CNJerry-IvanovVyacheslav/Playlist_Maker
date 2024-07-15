@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.tracks
+package com.melongame.playlistmaker.presentation
 
 import android.view.View
 import android.widget.ImageView
@@ -7,9 +7,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.melongame.playlistmaker.R
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-
-import java.text.SimpleDateFormat
-import java.util.Locale
+import com.melongame.playlistmaker.domain.models.Track
+import com.melongame.playlistmaker.additional_fun.timeFormat
 
 class TrackViewHolder(view: View, private val imageCornersDp: Int) : RecyclerView.ViewHolder(view) {
 
@@ -21,8 +20,7 @@ class TrackViewHolder(view: View, private val imageCornersDp: Int) : RecyclerVie
     fun bind(track: Track) {
         name.text = track.trackName
         artist.text = track.artistName
-        time.text =
-            SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTimeMillis.toLong())
+        time.text = timeFormat.format(track.trackTimeMillis.toLong())
 
         Glide.with(itemView.context)
             .load(track.artworkUrl100)

@@ -1,5 +1,9 @@
-package com.melongame.playlistmaker.tracks
+package com.melongame.playlistmaker.domain.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class Track(
     val trackName: String,
     val artistName: String,
@@ -10,5 +14,5 @@ data class Track(
     val releaseDate: String,
     val primaryGenreName: String,
     val country: String,
-    val previewUrl: String
-)
+    val previewUrl: String,
+) : Parcelable

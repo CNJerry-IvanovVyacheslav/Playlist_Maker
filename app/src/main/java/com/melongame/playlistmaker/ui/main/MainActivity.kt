@@ -1,10 +1,13 @@
-package com.melongame.playlistmaker.activity
+package com.melongame.playlistmaker.ui.main
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.melongame.playlistmaker.R
+import com.melongame.playlistmaker.ui.media.MediaActivity
+import com.melongame.playlistmaker.ui.settings.SettingsActivity
+import com.melongame.playlistmaker.ui.search.SearchActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
