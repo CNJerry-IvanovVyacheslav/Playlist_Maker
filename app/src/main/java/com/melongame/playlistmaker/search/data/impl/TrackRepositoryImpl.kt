@@ -12,7 +12,7 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
     override fun searchTrack(expression: String): SearchResult<List<Track>> {
         val response = networkClient.doRequest(TrackSearchRequest(expression))
         return when (response.resultCode) {
-            200 -> {
+            RESULT_SUCCESS -> {
                 SearchResult.Success((response as TracksResponse).tracks.map {
                     Track(
                         it.trackName ?: "",
@@ -28,13 +28,19 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepos
                 })
             }
 
-            -1 -> {
-                SearchResult.Error(-1)
+            RESULT_NO_CONNECTION -> {
+                SearchResult.Error(RESULT_NO_CONNECTION)
             }
 
             else -> {
-                SearchResult.Error(0)
+                SearchResult.Error(RESULT_ERROR)
             }
         }
+    }
+
+    private companion object {
+        const val RESULT_SUCCESS = 200
+        const val RESULT_NO_CONNECTION = -1
+        const val RESULT_ERROR = 0
     }
 }

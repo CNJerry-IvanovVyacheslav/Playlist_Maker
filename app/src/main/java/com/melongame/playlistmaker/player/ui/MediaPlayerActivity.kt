@@ -15,6 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.melongame.playlistmaker.databinding.ActivityPlayerBinding
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.player.ui.view_model.MediaPlayerViewModel
+import java.security.acl.Owner
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -26,10 +27,11 @@ class MediaPlayerActivity : AppCompatActivity() {
     private lateinit var playerTime: TextView
     private lateinit var viewModel: MediaPlayerViewModel
     private val handler = Handler(Looper.getMainLooper())
-    private val dateFormat by lazy { SimpleDateFormat("mm:ss", Locale.getDefault()) }
+    private val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.i("Player", "Плейер создан")
 
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
@@ -38,11 +40,14 @@ class MediaPlayerActivity : AppCompatActivity() {
             this,
             MediaPlayerViewModel.getViewModelFactory()
         )[MediaPlayerViewModel::class.java]
+        Log.i("Player", "Взята viewModel из провайдера")
         val trackJsonString = intent.getStringExtra(KEY_TRACK_JSON)
 
-        viewModel.setTrack(trackJsonString)
+        viewModel.setTrack(trackJsonString!!)
+        Log.i("Player", "Трек установлен")
 
         val url = viewModel.pState.value?.track?.previewUrl
+        Log.i("Player", "url превьюхи записан")
 
         val playerTrackArtwork = binding.playerImage
         val playerTrackName = binding.playerTrackName
@@ -57,11 +62,14 @@ class MediaPlayerActivity : AppCompatActivity() {
         playerTime = binding.playerTime
 
         playButton = binding.playerPlayTrack
+        Log.i("Player", "вьюхи забинжены")
 
         viewModel.pState.observe(this) { state ->
             val track = state.track
+            Log.i("Player", "обсервер сработал")
 
             if (track != null) {
+                Log.i("Player", "Трек существует")
                 playerTrackName.text = track.trackName
                 playerArtistName.text = track.artistName
                 playerReleaseDate.text = track.releaseDate.substring(0, 4)
@@ -96,7 +104,7 @@ class MediaPlayerActivity : AppCompatActivity() {
             playButton.isEnabled = state.isPrepared
             playButton.setImageResource(if (state.isPlaying) R.drawable.ic_pause else R.drawable.ic_play_track)
             playerTime.text = dateFormat.format(state.currentPosition)
-            Log.d("TimeChanged", "Время обновилось (по идее)!")
+            Log.i("TimeChanged", "Время обновилось (по идее)!")
         }
 
         viewModel.preparePlayer(url)
@@ -109,7 +117,7 @@ class MediaPlayerActivity : AppCompatActivity() {
         updateProgressRunnable = object : Runnable {
             override fun run() {
                 viewModel.updateCurrentPosition()
-                Log.d("TimeChanged", "Время обновилось!")
+                Log.i("TimeChanged", "Время обновилось!")
                 handler.postDelayed(this, TIME_DELAY)
             }
         }
@@ -119,20 +127,22 @@ class MediaPlayerActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         viewModel.pausePlayer()
+        Log.i("Player", "Пауза")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         viewModel.release()
         handler.removeCallbacks(updateProgressRunnable)
+        Log.i("Player", "Активити плейера уничтожена")
     }
 
     private fun playbackControl() {
         viewModel.playbackControl()
     }
 
-    companion object {
-        private const val KEY_TRACK_JSON = "trackJson"
-        private const val TIME_DELAY = 500L
+    private companion object {
+        const val KEY_TRACK_JSON = "trackJson"
+        const val TIME_DELAY = 500L
     }
 }

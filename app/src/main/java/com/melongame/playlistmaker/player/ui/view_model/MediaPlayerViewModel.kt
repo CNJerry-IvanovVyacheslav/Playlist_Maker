@@ -37,7 +37,7 @@ class MediaPlayerViewModel(private val interactor: MediaPlayerInteractor) : View
                         isPrepared = true,
                         currentPosition = 0
                     )
-                Log.d("TimeChanged", "Время обновилось на 0 после завершения трека!")
+                Log.i("TimeChanged", "Время обновилось на 0 после завершения трека!")
             })
         }
     }
@@ -61,7 +61,7 @@ class MediaPlayerViewModel(private val interactor: MediaPlayerInteractor) : View
         interactor.release()
         playerState.value =
             playerState.value?.copy(isPlaying = false, isPrepared = false, currentPosition = 0)
-        Log.d("TimeChanged", "Время обновилось на 0 после выхода!")
+        Log.i("TimeChanged", "Время обновилось на 0 после выхода!")
     }
 
     fun getCollectionNameVisibility(track: Track): Boolean {

@@ -55,9 +55,7 @@ class SearchActivity : AppCompatActivity() {
             this,
             SearchViewModel.getViewModelFactory()
         )[SearchViewModel::class.java]
-        viewModel.observeState().observe(this) {
-            setState(it)
-        }
+        viewModel.observeState().observe(this, ::setState)
 
         historyAdapter = TrackAdapter()
         historyRecyclerView.adapter = historyAdapter
@@ -71,9 +69,9 @@ class SearchActivity : AppCompatActivity() {
         inputEditText = findViewById(R.id.searchEditText)
         progressBar = findViewById(R.id.progressBar)
 
-        adapter.onItemClick = { track -> onTrackClicked(track) }
+        adapter.onItemClick = ::onTrackClicked
 
-        historyAdapter.onItemClick = { track -> onTrackClicked(track) }
+        historyAdapter.onItemClick = ::onTrackClicked
 
         searchTracks.adapter = adapter
         searchTracks.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
@@ -91,7 +89,7 @@ class SearchActivity : AppCompatActivity() {
                 inputMethodManager?.hideSoftInputFromWindow(currentFocus.windowToken, 0)
                 viewModel.clearTracks()
                 adapter.notifyDataSetChanged()
-                Log.d("SearchChanger", "Удален текст из поля поиска!")
+                Log.i("SearchChanger", "Удален текст из поля поиска!")
             }
         }
 
@@ -102,7 +100,7 @@ class SearchActivity : AppCompatActivity() {
             viewModel.clearSearchHistory()
             historyAdapter.notifyDataSetChanged()
             searchHistoryLayout.isVisible = false
-            Log.d("SearchChanger", "История поиска отчищена!")
+            Log.i("SearchChanger", "История поиска отчищена!")
         }
 
         inputEditText.setOnEditorActionListener { _, actionId, _ ->
@@ -129,7 +127,6 @@ class SearchActivity : AppCompatActivity() {
 
 
         inputEditText.addTextChangedListener(
-            beforeTextChanged = { _, _, _, _ -> },
             onTextChanged = { charSequence, _, _, _ ->
                 hideAllViews()
                 clearButton.isVisible = !charSequence.isNullOrEmpty()
@@ -151,12 +148,12 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putString(KEY_SEARCH_TEXT, viewModel.searchText)
+        outState.putString(KEY_SEARCH_TEXT, inputText)
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        viewModel.searchText = savedInstanceState.getString(KEY_SEARCH_TEXT, TEXT_DEFAULT)
+        inputText = savedInstanceState.getString(KEY_SEARCH_TEXT, TEXT_DEFAULT)
     }
 
     private fun hideAllViews() {

@@ -10,12 +10,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitNetworkClient(private val context: Context) : NetworkClient {
 
-    private val imdbBaseUrl = "https://itunes.apple.com"
-
-    private val retrofit = Retrofit.Builder()
-        .baseUrl(imdbBaseUrl)
-        .addConverterFactory(GsonConverterFactory.create())
-        .build()
+    private val retrofit =
+        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+            .build()
 
     private val imdbService = retrofit.create(ITunesApi::class.java)
 
@@ -35,19 +32,23 @@ class RetrofitNetworkClient(private val context: Context) : NetworkClient {
         return false
     }
 
-    override fun doRequest(dto: Any): Response {
+    override fun doRequest(dto: TrackSearchRequest): Response {
 
-        if (!isConnected()) {
-            return Response().apply { resultCode = -1 }
+        if (isConnected()) {
+            try {
+                val resp = imdbService.getTracks(dto.expression).execute()
+
+                val body = resp.body() ?: Response()
+
+                return body.apply { resultCode = 200 }
+            } catch (e: Exception) {
+                return Response().apply { resultCode = 0 }
+            }
         }
-        return if (dto is TrackSearchRequest) {
-            val resp = imdbService.getTracks(dto.expression).execute()
+        return Response().apply { resultCode = -1 }
+    }
 
-            val body = resp.body() ?: Response()
-
-            body.apply { resultCode = resp.code() }
-        } else {
-            Response().apply { resultCode = 400 }
-        }
+    private companion object {
+        const val BASE_URL = "https://itunes.apple.com"
     }
 }

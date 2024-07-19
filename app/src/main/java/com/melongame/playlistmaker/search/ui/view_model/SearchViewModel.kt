@@ -23,7 +23,7 @@ class SearchViewModel(application: Application) : AndroidViewModel(application) 
     )
     private var isClickAllowed = true
     private val tracks = ArrayList<Track>()
-    var searchText: String = TEXT_DEFAULT
+    private var searchText: String = TEXT_DEFAULT
     private var lastTrack: String? = null
     private val stateLiveData = MutableLiveData<SearchState>()
     fun observeState(): LiveData<SearchState> = stateLiveData
