@@ -8,10 +8,11 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.melongame.playlistmaker.player.domain.api.MediaPlayerInteractor
+import com.melongame.playlistmaker.player.domain.models.MediaPlayerState
 import com.melongame.playlistmaker.search.domain.models.Track
 import com.melongame.playlistmaker.util.Creator
 
-class MediaPlayerViewModel(private val interactor: MediaPlayerInteractor) : ViewModel() {
+class MediaPlayerViewModel(private var interactor: MediaPlayerInteractor) : ViewModel() {
 
     private val playerState = MutableLiveData<PlayerState>()
     val pState: LiveData<PlayerState> get() = playerState
@@ -27,10 +28,16 @@ class MediaPlayerViewModel(private val interactor: MediaPlayerInteractor) : View
     }
 
     fun preparePlayer(url: String?) {
+        Log.i("preparePlayerStatus", "Подготовка плеера запущена")
         if (url != null) {
-            interactor.preparePlayer(url, {
+            Log.i("preparePlayerStatus", "url не null")
+            interactor.preparePlayer(
+                url = url,
+                onPrepared = {
                 playerState.value = playerState.value?.copy(isPrepared = true)
-            }, {
+                Log.i("TimeChanged", "isPrepared перезаписана на true")
+            },
+                onCompletion = {
                 playerState.value =
                     playerState.value?.copy(
                         isPlaying = false,
@@ -39,7 +46,8 @@ class MediaPlayerViewModel(private val interactor: MediaPlayerInteractor) : View
                     )
                 Log.i("TimeChanged", "Время обновилось на 0 после завершения трека!")
             })
-        }
+            Log.i("preparePlayerStatus", "Все данные переданы")
+        } else (Log.i("preparePlayerStatus", "url = null"))
     }
 
 

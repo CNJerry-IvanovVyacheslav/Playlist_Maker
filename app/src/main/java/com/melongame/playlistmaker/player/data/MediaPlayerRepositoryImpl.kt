@@ -8,16 +8,16 @@ import com.melongame.playlistmaker.search.domain.models.Track
 
 class MediaPlayerRepositoryImpl : MediaPlayerRepository {
 
-    private val mediaPlayer = Creator.getMediaPlayer()
+    private var mediaPlayer = Creator.getMediaPlayer()
     private var playerState = MediaPlayerState.DEFAULT
     override fun getTrackFromJson(trackJsonString: String?): Track {
         return Gson().fromJson(trackJsonString, Track::class.java)
     }
 
 
-    override fun currentPosition(): Int {
+    override fun currentPosition(): Int? {
         return if (playerState != MediaPlayerState.DEFAULT && playerState != MediaPlayerState.PREPARED) {
-            mediaPlayer.currentPosition
+            mediaPlayer?.currentPosition
         } else {
             0
         }
@@ -28,26 +28,28 @@ class MediaPlayerRepositoryImpl : MediaPlayerRepository {
         onPrepared: () -> Unit,
         onCompletion: () -> Unit,
     ) {
-        mediaPlayer.setDataSource(url)
-        mediaPlayer.prepareAsync()
-        mediaPlayer.setOnPreparedListener {
+
+        mediaPlayer = Creator.getMediaPlayer()
+        mediaPlayer?.setDataSource(url)
+        mediaPlayer?.prepareAsync()
+        mediaPlayer?.setOnPreparedListener {
             playerState = MediaPlayerState.PREPARED
-            onPrepared()
+            onPrepared.invoke()
         }
-        mediaPlayer.setOnCompletionListener {
+        mediaPlayer?.setOnCompletionListener {
             playerState = MediaPlayerState.PREPARED
-            onCompletion()
+            onCompletion.invoke()
         }
 
     }
 
     override fun startPlayer() {
-        mediaPlayer.start()
+        mediaPlayer?.start()
         playerState = MediaPlayerState.PLAYING
     }
 
     override fun pausePlayer() {
-        mediaPlayer.pause()
+        mediaPlayer?.pause()
         playerState = MediaPlayerState.PAUSED
     }
 
@@ -68,7 +70,8 @@ class MediaPlayerRepositoryImpl : MediaPlayerRepository {
     }
 
     override fun release() {
-        mediaPlayer.release()
+        mediaPlayer?.release()
+        mediaPlayer = null
         playerState = MediaPlayerState.DEFAULT
     }
 

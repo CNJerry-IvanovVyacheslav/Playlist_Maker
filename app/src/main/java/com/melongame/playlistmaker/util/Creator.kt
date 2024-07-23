@@ -45,7 +45,7 @@ object Creator {
         return MediaPlayerInteractorImpl(getAudioPlayerRepository())
     }
 
-    fun getMediaPlayer(): MediaPlayer {
+    fun getMediaPlayer(): MediaPlayer? {
         return MediaPlayer()
     }
 

@@ -12,7 +12,7 @@ class MediaPlayerInteractorImpl(private val mediaPlayer: MediaPlayerRepository) 
     }
 
     override fun currentPosition(): Int {
-        return mediaPlayer.currentPosition()
+        return mediaPlayer.currentPosition()!!
     }
 
     override fun preparePlayer(

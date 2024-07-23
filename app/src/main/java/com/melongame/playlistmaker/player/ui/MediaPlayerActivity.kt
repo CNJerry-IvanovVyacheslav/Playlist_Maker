@@ -15,7 +15,7 @@ import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.melongame.playlistmaker.databinding.ActivityPlayerBinding
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.player.ui.view_model.MediaPlayerViewModel
-import java.security.acl.Owner
+import com.melongame.playlistmaker.search.domain.models.Track
 import java.text.SimpleDateFormat
 import java.util.Locale
 
@@ -36,12 +36,13 @@ class MediaPlayerActivity : AppCompatActivity() {
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        val trackJsonString = intent.getStringExtra(KEY_TRACK_JSON)
+
         viewModel = ViewModelProvider(
             this,
             MediaPlayerViewModel.getViewModelFactory()
         )[MediaPlayerViewModel::class.java]
         Log.i("Player", "Взята viewModel из провайдера")
-        val trackJsonString = intent.getStringExtra(KEY_TRACK_JSON)
 
         viewModel.setTrack(trackJsonString!!)
         Log.i("Player", "Трек установлен")
@@ -49,15 +50,6 @@ class MediaPlayerActivity : AppCompatActivity() {
         val url = viewModel.pState.value?.track?.previewUrl
         Log.i("Player", "url превьюхи записан")
 
-        val playerTrackArtwork = binding.playerImage
-        val playerTrackName = binding.playerTrackName
-        val playerArtistName = binding.playerArtistName
-        val playerCollectionName = binding.playerAlbumName
-        val playerReleaseDate = binding.releaseDate
-        val playerPrimaryGenreName = binding.playerPrimaryGenre
-        val playerCountry = binding.playerCountryName
-        val playerTrackTime = binding.playerTrackTimeMills
-        val collectionNameTextView = binding.playerAlbum
         val backButton = binding.playerBackButton
         playerTime = binding.playerTime
 
@@ -68,39 +60,7 @@ class MediaPlayerActivity : AppCompatActivity() {
             val track = state.track
             Log.i("Player", "обсервер сработал")
 
-            if (track != null) {
-                Log.i("Player", "Трек существует")
-                playerTrackName.text = track.trackName
-                playerArtistName.text = track.artistName
-                playerReleaseDate.text = track.releaseDate.substring(0, 4)
-                playerPrimaryGenreName.text = track.primaryGenreName
-                playerCountry.text = track.country
-                playerTrackTime.text =
-                    SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime)
-
-                Glide.with(this)
-                    .load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
-                    .placeholder(R.drawable.placeholder)
-                    .centerCrop()
-                    .transform(
-                        RoundedCorners(
-                            TypedValue.applyDimension(
-                                TypedValue.COMPLEX_UNIT_DIP,
-                                8F,
-                                resources.displayMetrics
-                            ).toInt()
-                        )
-                    )
-                    .into(playerTrackArtwork)
-
-                val isCollectionNameVisible = viewModel.getCollectionNameVisibility(track)
-                playerCollectionName.isVisible = isCollectionNameVisible
-                collectionNameTextView.isVisible = isCollectionNameVisible
-
-                if (isCollectionNameVisible) {
-                    playerCollectionName.text = track.collectionName
-                }
-            }
+            showTrack(track!!)
             playButton.isEnabled = state.isPrepared
             playButton.setImageResource(if (state.isPlaying) R.drawable.ic_pause else R.drawable.ic_play_track)
             playerTime.text = dateFormat.format(state.currentPosition)
@@ -122,6 +82,42 @@ class MediaPlayerActivity : AppCompatActivity() {
             }
         }
         handler.post(updateProgressRunnable)
+    }
+
+    private fun showTrack(track: Track) {
+        binding.apply {
+            Log.i("Player", "Трек существует")
+            playerTrackName.text = track.trackName
+            playerArtistName.text = track.artistName
+            releaseDate.text = track.releaseDate.substring(0, 4)
+            playerPrimaryGenre.text = track.primaryGenreName
+            playerCountryName.text = track.country
+            playerTrackTimeMills.text =
+                SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime)
+
+            Glide.with(playerImage)
+                .load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
+                .placeholder(R.drawable.placeholder)
+                .centerCrop()
+                .transform(
+                    RoundedCorners(
+                        TypedValue.applyDimension(
+                            TypedValue.COMPLEX_UNIT_DIP,
+                            8F,
+                            resources.displayMetrics
+                        ).toInt()
+                    )
+                )
+                .into(playerImage)
+
+            val isCollectionNameVisible = viewModel.getCollectionNameVisibility(track)
+            playerAlbumName.isVisible = isCollectionNameVisible
+            playerAlbum.isVisible = isCollectionNameVisible
+
+            if (isCollectionNameVisible) {
+                playerAlbumName.text = track.collectionName
+            }
+        }
     }
 
     override fun onPause() {
