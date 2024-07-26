@@ -1,14 +1,13 @@
 package com.melongame.playlistmaker.player.data
 
+import android.media.MediaPlayer
 import com.google.gson.Gson
-import com.melongame.playlistmaker.util.Creator
 import com.melongame.playlistmaker.player.domain.api.MediaPlayerRepository
 import com.melongame.playlistmaker.player.domain.models.MediaPlayerState
 import com.melongame.playlistmaker.search.domain.models.Track
 
-class MediaPlayerRepositoryImpl : MediaPlayerRepository {
+class MediaPlayerRepositoryImpl(private var mediaPlayer: MediaPlayer?) : MediaPlayerRepository {
 
-    private var mediaPlayer = Creator.getMediaPlayer()
     private var playerState = MediaPlayerState.DEFAULT
     override fun getTrackFromJson(trackJsonString: String?): Track {
         return Gson().fromJson(trackJsonString, Track::class.java)
@@ -24,12 +23,11 @@ class MediaPlayerRepositoryImpl : MediaPlayerRepository {
     }
 
     override fun preparePlayer(
-        url: String,
+        url: String?,
         onPrepared: () -> Unit,
         onCompletion: () -> Unit,
     ) {
-
-        mediaPlayer = Creator.getMediaPlayer()
+        mediaPlayer = MediaPlayer()
         mediaPlayer?.setDataSource(url)
         mediaPlayer?.prepareAsync()
         mediaPlayer?.setOnPreparedListener {

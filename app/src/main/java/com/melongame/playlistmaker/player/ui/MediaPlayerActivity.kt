@@ -9,23 +9,23 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
-import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.melongame.playlistmaker.databinding.ActivityPlayerBinding
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.player.ui.view_model.MediaPlayerViewModel
 import com.melongame.playlistmaker.search.domain.models.Track
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 class MediaPlayerActivity : AppCompatActivity() {
 
+    private val viewModel: MediaPlayerViewModel by viewModel()
     private lateinit var binding: ActivityPlayerBinding
     private lateinit var playButton: ImageView
     private lateinit var updateProgressRunnable: Runnable
     private lateinit var playerTime: TextView
-    private lateinit var viewModel: MediaPlayerViewModel
     private val handler = Handler(Looper.getMainLooper())
     private val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
 
@@ -37,12 +37,6 @@ class MediaPlayerActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val trackJsonString = intent.getStringExtra(KEY_TRACK_JSON)
-
-        viewModel = ViewModelProvider(
-            this,
-            MediaPlayerViewModel.getViewModelFactory()
-        )[MediaPlayerViewModel::class.java]
-        Log.i("Player", "Взята viewModel из провайдера")
 
         viewModel.setTrack(trackJsonString!!)
         Log.i("Player", "Трек установлен")

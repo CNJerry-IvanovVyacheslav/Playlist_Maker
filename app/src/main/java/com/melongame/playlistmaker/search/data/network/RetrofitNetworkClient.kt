@@ -5,16 +5,11 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.melongame.playlistmaker.search.data.NetworkClient
 import com.melongame.playlistmaker.search.data.dto.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
-class RetrofitNetworkClient(private val context: Context) : NetworkClient {
-
-    private val retrofit =
-        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
-            .build()
-
-    private val imdbService = retrofit.create(ITunesApi::class.java)
+class RetrofitNetworkClient(
+    private val iTunesApi: ITunesApi,
+    private val context: Context,
+) : NetworkClient {
 
     private fun isConnected(): Boolean {
         val connectivityManager = context.getSystemService(
@@ -36,7 +31,7 @@ class RetrofitNetworkClient(private val context: Context) : NetworkClient {
 
         if (isConnected()) {
             try {
-                val resp = imdbService.getTracks(dto.expression).execute()
+                val resp = iTunesApi.getTracks(dto.expression).execute()
 
                 val body = resp.body() ?: Response()
 
@@ -46,9 +41,5 @@ class RetrofitNetworkClient(private val context: Context) : NetworkClient {
             }
         }
         return Response().apply { resultCode = -1 }
-    }
-
-    private companion object {
-        const val BASE_URL = "https://itunes.apple.com"
     }
 }

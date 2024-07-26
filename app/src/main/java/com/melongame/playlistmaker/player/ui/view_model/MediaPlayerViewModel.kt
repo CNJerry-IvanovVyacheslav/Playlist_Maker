@@ -4,13 +4,8 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewmodel.initializer
-import androidx.lifecycle.viewmodel.viewModelFactory
 import com.melongame.playlistmaker.player.domain.api.MediaPlayerInteractor
-import com.melongame.playlistmaker.player.domain.models.MediaPlayerState
 import com.melongame.playlistmaker.search.domain.models.Track
-import com.melongame.playlistmaker.util.Creator
 
 class MediaPlayerViewModel(private var interactor: MediaPlayerInteractor) : ViewModel() {
 
@@ -34,18 +29,18 @@ class MediaPlayerViewModel(private var interactor: MediaPlayerInteractor) : View
             interactor.preparePlayer(
                 url = url,
                 onPrepared = {
-                playerState.value = playerState.value?.copy(isPrepared = true)
-                Log.i("TimeChanged", "isPrepared перезаписана на true")
-            },
+                    playerState.value = playerState.value?.copy(isPrepared = true)
+                    Log.i("TimeChanged", "isPrepared перезаписана на true")
+                },
                 onCompletion = {
-                playerState.value =
-                    playerState.value?.copy(
-                        isPlaying = false,
-                        isPrepared = true,
-                        currentPosition = 0
-                    )
-                Log.i("TimeChanged", "Время обновилось на 0 после завершения трека!")
-            })
+                    playerState.value =
+                        playerState.value?.copy(
+                            isPlaying = false,
+                            isPrepared = true,
+                            currentPosition = 0
+                        )
+                    Log.i("TimeChanged", "Время обновилось на 0 после завершения трека!")
+                })
             Log.i("preparePlayerStatus", "Все данные переданы")
         } else (Log.i("preparePlayerStatus", "url = null"))
     }
@@ -74,15 +69,5 @@ class MediaPlayerViewModel(private var interactor: MediaPlayerInteractor) : View
 
     fun getCollectionNameVisibility(track: Track): Boolean {
         return !(track.collectionName.isEmpty() || track.collectionName.contains("Single"))
-    }
-
-    companion object {
-        fun getViewModelFactory(): ViewModelProvider.Factory = viewModelFactory {
-            initializer {
-                MediaPlayerViewModel(
-                    Creator.provideAudioPlayerInteractor()
-                )
-            }
-        }
     }
 }
