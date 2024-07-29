@@ -7,12 +7,12 @@ import com.google.gson.reflect.TypeToken
 import com.melongame.playlistmaker.search.domain.api.SearchHistoryRepository
 import com.melongame.playlistmaker.search.domain.models.Track
 
-class SearchHistoryRepositoryImpl(private val sharedPref: SharedPreferences) :
-    SearchHistoryRepository {
+class SearchHistoryRepositoryImpl(
+    private val sharedPref: SharedPreferences,
+    private val gson: Gson,
+) : SearchHistoryRepository {
 
-    private val gson = Gson()
     private val editor = sharedPref.edit()
-
 
     override fun saveTrack(track: Track) {
         val history = getSearchHistory().toMutableList()

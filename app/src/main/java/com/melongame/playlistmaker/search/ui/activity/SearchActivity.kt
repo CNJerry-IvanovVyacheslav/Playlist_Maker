@@ -15,7 +15,6 @@ import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
@@ -24,11 +23,12 @@ import com.melongame.playlistmaker.player.ui.MediaPlayerActivity
 import com.melongame.playlistmaker.search.domain.models.Track
 import com.melongame.playlistmaker.search.ui.view_model.SearchState
 import com.melongame.playlistmaker.search.ui.view_model.SearchViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class SearchActivity : AppCompatActivity() {
 
-    private lateinit var viewModel: SearchViewModel
+    private val viewModel by viewModel<SearchViewModel>()
     private var inputText: String = TEXT_DEFAULT
     private val adapter = TrackAdapter()
 
@@ -51,10 +51,6 @@ class SearchActivity : AppCompatActivity() {
         val clearHistory = findViewById<Button>(R.id.clear_history_button)
         val historyRecyclerView = findViewById<RecyclerView>(R.id.history_recycler_view)
 
-        viewModel = ViewModelProvider(
-            this,
-            SearchViewModel.getViewModelFactory()
-        )[SearchViewModel::class.java]
         viewModel.observeState().observe(this, ::setState)
 
         historyAdapter = TrackAdapter()

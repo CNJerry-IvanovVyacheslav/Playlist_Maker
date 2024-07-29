@@ -1,5 +1,6 @@
 package com.melongame.playlistmaker.search.data.impl
 
+import com.google.gson.Gson
 import com.melongame.playlistmaker.search.data.NetworkClient
 import com.melongame.playlistmaker.search.data.dto.TracksResponse
 import com.melongame.playlistmaker.search.data.network.TrackSearchRequest
@@ -7,7 +8,8 @@ import com.melongame.playlistmaker.search.domain.api.TrackRepository
 import com.melongame.playlistmaker.search.domain.models.Track
 import com.melongame.playlistmaker.util.SearchResult
 
-class TrackRepositoryImpl(private val networkClient: NetworkClient) : TrackRepository {
+class TrackRepositoryImpl(private val networkClient: NetworkClient, private val gson: Gson) :
+    TrackRepository {
 
     override fun searchTrack(expression: String): SearchResult<List<Track>> {
         val response = networkClient.doRequest(TrackSearchRequest(expression))
