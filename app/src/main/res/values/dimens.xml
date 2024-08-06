@@ -4,6 +4,7 @@
     <dimen name="search_bar_8dp">8dp</dimen>
     <dimen name="zero_dimens">0dp</dimen>
     <dimen name="dimens_44dp">44dp</dimen>
+    <dimen name="dimens_54dp">54dp</dimen>
     <dimen name="dimens_24dp">24dp</dimen>
     <dimen name="dimens_2dp">2dp</dimen>
     <dimen name="default_dor_small_text">12sp</dimen>
@@ -22,4 +23,5 @@
     <dimen name="dimens_12dp">12dp</dimen>
     <dimen name="dimens_18dp">18dp</dimen>
     <dimen name="dimens_140dp">140dp</dimen>
+    <dimen name="dimens_108dp">108dp</dimen>
 </resources>

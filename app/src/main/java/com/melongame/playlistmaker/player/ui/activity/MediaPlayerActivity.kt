@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.player.ui
+package com.melongame.playlistmaker.player.ui.activity
 
 import android.os.Bundle
 import android.os.Handler
