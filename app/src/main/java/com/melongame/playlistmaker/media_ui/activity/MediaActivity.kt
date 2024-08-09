@@ -14,8 +14,6 @@ class MediaActivity : AppCompatActivity() {
 
     private lateinit var tabMediator: TabLayoutMediator
 
-    private val viewModel: MediaViewModel by viewModels()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMediaBinding.inflate(layoutInflater)
@@ -25,7 +23,7 @@ class MediaActivity : AppCompatActivity() {
             finish()
         }
 
-        binding.viewPager.adapter = MediaPagerAdapter(supportFragmentManager, lifecycle)
+        binding.viewPager.adapter = LibraryPagerAdapter(supportFragmentManager, lifecycle)
 
         tabMediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
