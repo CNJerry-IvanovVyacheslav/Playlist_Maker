@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import com.melongame.playlistmaker.R
-import com.melongame.playlistmaker.media_ui.MediaActivity
+import com.melongame.playlistmaker.media_ui.activity.MediaActivity
 import com.melongame.playlistmaker.settings.ui.activity.SettingsActivity
 import com.melongame.playlistmaker.search.ui.activity.SearchActivity
 
