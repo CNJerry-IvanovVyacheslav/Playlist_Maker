@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.Gson
 import com.melongame.playlistmaker.R
-import com.melongame.playlistmaker.player.ui.MediaPlayerActivity
+import com.melongame.playlistmaker.player.ui.activity.MediaPlayerActivity
 import com.melongame.playlistmaker.search.domain.models.Track
 import com.melongame.playlistmaker.search.ui.view_model.SearchState
 import com.melongame.playlistmaker.search.ui.view_model.SearchViewModel

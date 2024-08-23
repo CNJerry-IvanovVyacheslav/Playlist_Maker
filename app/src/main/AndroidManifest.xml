@@ -17,11 +17,11 @@
         android:theme="@style/Base.Theme.PlaylistMaker"
         tools:targetApi="s">
         <activity
-            android:name=".media_ui.MediaActivity"
+            android:name=".media_ui.activity.MediaActivity"
             android:exported="false"
             android:theme="@style/Theme.PlaylistMaker" />
         <activity
-            android:name=".player.ui.MediaPlayerActivity"
+            android:name=".player.ui.activity.MediaPlayerActivity"
             android:exported="false"
             android:theme="@style/Theme.PlaylistMaker" />
         <activity
