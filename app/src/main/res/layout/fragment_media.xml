@@ -16,11 +16,14 @@
             android:id="@+id/library_back_button"
             style="@style/BackArrowButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="gone"/>
 
         <TextView
             style="@style/PageTitle"
             android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/search_bar_8dp"
+            android:layout_marginStart="@dimen/search_bar_8dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/media" />

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
     android:theme="@style/Theme.PlaylistMaker"
     tools:context=".player.ui.activity.MediaPlayerActivity">
 
@@ -27,7 +28,8 @@
         style="@style/BackArrowButton"
         android:layout_margin="@dimen/dimens_4dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="invisible"/>
 
     <ImageView
         android:id="@+id/player_image"

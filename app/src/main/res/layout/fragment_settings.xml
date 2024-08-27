@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:theme="@style/Theme.PlaylistMaker">
+    android:theme="@style/Theme.PlaylistMaker"
+    tools:context=".settings.ui.activity.SettingsFragment">
 
 
     <LinearLayout
@@ -18,11 +20,13 @@
             android:layout_marginStart="4dp"
             android:layout_marginTop="4dp"
             android:clickable="true"
-            android:src="@drawable/back_light" />
+            android:src="@drawable/back_light"
+            android:visibility="gone"/>
 
         <TextView
             style="@style/PageTitle"
             android:layout_gravity="center_vertical"
+            android:layout_marginStart="@dimen/search_bar_8dp"
             android:text="@string/settings" />
 
     </LinearLayout>

@@ -36,9 +36,9 @@ class MediaPlayerActivity : AppCompatActivity() {
         binding = ActivityPlayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val trackJsonString = intent.getStringExtra(KEY_TRACK_JSON)
+        val track = intent.getParcelableExtra<Track>(KEY_TRACK)
 
-        viewModel.setTrack(trackJsonString!!)
+        viewModel.setTrack(track)
         Log.i("Player", "Трек установлен")
 
         val url = viewModel.pState.value?.track?.previewUrl
@@ -132,7 +132,7 @@ class MediaPlayerActivity : AppCompatActivity() {
     }
 
     private companion object {
-        const val KEY_TRACK_JSON = "trackJson"
+        private const val KEY_TRACK = "track"
         const val TIME_DELAY = 500L
     }
 }
