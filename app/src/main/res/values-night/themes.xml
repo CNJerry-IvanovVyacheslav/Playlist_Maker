@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.PlaylistMaker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="backgroundColor">@color/black_text</item>
         <item name="colorSecondary">@color/white</item>
+        <item name="colorOnSecondary">@color/black_text</item>
         <item name="iconTint">@color/white</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
@@ -14,5 +14,11 @@
         <item name="colorOnPrimary">@color/white</item>
         <item name="android:background">@color/black_text</item>
         <item name="android:iconTint">@color/white</item>
+    </style>
+
+    <style name="Theme.PlaylistMaker.Media" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/black_text</item>
+        <item name="colorSecondary">@color/black_text</item>
+        <item name="colorOnPrimary">@color/black_text</item>
     </style>
 </resources>

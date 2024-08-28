@@ -65,6 +65,12 @@
         <item name="android:tint">@color/black</item>
     </style>
 
+    <style name="TextStyle14">
+        <item name="android:textSize">@dimen/default_for_text</item>
+        <item name="android:fontFamily">@font/ys_display_medium</item>
+        <item name="textAllCaps">false</item>
+    </style>
+
     <style name="SetColorForText">
         <item name="android:textColor">@color/black_text</item>
     </style>
@@ -215,6 +221,5 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="tabTextColor">@color/black</item>
         <item name="tabIndicatorColor">@color/black</item>
-        <item name="tabBackground">@color/white</item>
     </style>
 </resources>

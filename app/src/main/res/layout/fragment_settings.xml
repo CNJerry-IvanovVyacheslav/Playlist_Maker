@@ -7,29 +7,12 @@
     android:theme="@style/Theme.PlaylistMaker"
     tools:context=".settings.ui.activity.SettingsFragment">
 
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="56dp">
-
-        <ImageView
-            android:id="@+id/back_light"
-            style="@style/BackArrowColor"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="4dp"
-            android:layout_marginTop="4dp"
-            android:clickable="true"
-            android:src="@drawable/back_light"
-            android:visibility="gone"/>
-
         <TextView
             style="@style/PageTitle"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/search_bar_8dp"
+            android:layout_marginStart="@dimen/dimens_16dp"
+            android:layout_marginTop="@dimen/dimens_16dp"
             android:text="@string/settings" />
-
-    </LinearLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
