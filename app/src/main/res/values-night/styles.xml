@@ -216,6 +216,5 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="tabTextColor">@color/white</item>
         <item name="tabIndicatorColor">@color/white</item>
-        <item name="tabBackground">@color/black</item>
     </style>
 </resources>

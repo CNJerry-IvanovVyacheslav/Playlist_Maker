@@ -16,10 +16,8 @@ class MediaPlayerViewModel(private var interactor: MediaPlayerInteractor) : View
         playerState.value = PlayerState()
     }
 
-    fun setTrack(trackJsonString: String?) {
-        playerState.value = playerState.value?.copy(
-            track = interactor.getTrackFromJson(trackJsonString)
-        )
+    fun setTrack(track: Track?) {
+        playerState.value = playerState.value?.copy(track = track)
     }
 
     fun preparePlayer(url: String?) {
