@@ -5,6 +5,8 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import com.melongame.playlistmaker.search.data.NetworkClient
 import com.melongame.playlistmaker.search.data.dto.Response
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class RetrofitNetworkClient(
     private val iTunesApi: ITunesApi,
@@ -27,19 +29,23 @@ class RetrofitNetworkClient(
         return false
     }
 
-    override fun doRequest(dto: TrackSearchRequest): Response {
+    override suspend fun doRequest(dto: TrackSearchRequest): Response {
 
-        if (isConnected()) {
+        if (!isConnected()) {
+            return Response().apply { resultCode = -1 }
+        }
+
+        if (false) {
+            return Response().apply { resultCode = 400 }
+        }
+        return withContext(Dispatchers.IO) {
             try {
-                val resp = iTunesApi.getTracks(dto.expression).execute()
+                val resp = iTunesApi.getTracks(dto.expression)
+                resp.apply { resultCode = 200 }
 
-                val body = resp.body() ?: Response()
-
-                return body.apply { resultCode = 200 }
-            } catch (e: Exception) {
-                return Response().apply { resultCode = 0 }
+            } catch (e: Throwable) {
+                Response().apply { resultCode = -1 }
             }
         }
-        return Response().apply { resultCode = -1 }
     }
 }

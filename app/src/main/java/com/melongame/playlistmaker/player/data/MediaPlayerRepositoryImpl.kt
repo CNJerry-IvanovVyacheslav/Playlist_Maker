@@ -1,25 +1,12 @@
 package com.melongame.playlistmaker.player.data
 
 import android.media.MediaPlayer
-import com.google.gson.Gson
 import com.melongame.playlistmaker.player.domain.api.MediaPlayerRepository
-import com.melongame.playlistmaker.player.domain.models.MediaPlayerState
-import com.melongame.playlistmaker.search.domain.models.Track
 
-class MediaPlayerRepositoryImpl(private var mediaPlayer: MediaPlayer?) : MediaPlayerRepository {
+class MediaPlayerRepositoryImpl(private var mediaPlayer: MediaPlayer) : MediaPlayerRepository {
 
-    private var playerState = MediaPlayerState.DEFAULT
-    override fun getTrackFromJson(trackJsonString: String?): Track {
-        return Gson().fromJson(trackJsonString, Track::class.java)
-    }
-
-
-    override fun currentPosition(): Int? {
-        return if (playerState != MediaPlayerState.DEFAULT && playerState != MediaPlayerState.PREPARED) {
-            mediaPlayer?.currentPosition
-        } else {
-            0
-        }
+    override fun currentPosition(): Int {
+        return mediaPlayer.currentPosition
     }
 
     override fun preparePlayer(
@@ -27,50 +14,27 @@ class MediaPlayerRepositoryImpl(private var mediaPlayer: MediaPlayer?) : MediaPl
         onPrepared: () -> Unit,
         onCompletion: () -> Unit,
     ) {
-        mediaPlayer = MediaPlayer()
-        mediaPlayer?.setDataSource(url)
-        mediaPlayer?.prepareAsync()
-        mediaPlayer?.setOnPreparedListener {
-            playerState = MediaPlayerState.PREPARED
-            onPrepared.invoke()
+        mediaPlayer.setDataSource(url)
+        mediaPlayer.prepareAsync()
+        mediaPlayer.setOnPreparedListener {
+            onPrepared()
         }
-        mediaPlayer?.setOnCompletionListener {
-            playerState = MediaPlayerState.PREPARED
-            onCompletion.invoke()
+        mediaPlayer.setOnCompletionListener {
+            onCompletion()
         }
 
     }
 
     override fun startPlayer() {
-        mediaPlayer?.start()
-        playerState = MediaPlayerState.PLAYING
+        mediaPlayer.start()
     }
 
     override fun pausePlayer() {
-        mediaPlayer?.pause()
-        playerState = MediaPlayerState.PAUSED
-    }
-
-    override fun playbackControl(): Boolean {
-        return when (playerState) {
-            MediaPlayerState.PLAYING -> {
-                pausePlayer()
-                false
-            }
-
-            MediaPlayerState.PREPARED, MediaPlayerState.PAUSED -> {
-                startPlayer()
-                true
-            }
-
-            else -> false
-        }
+        mediaPlayer.pause()
     }
 
     override fun release() {
-        mediaPlayer?.release()
-        mediaPlayer = null
-        playerState = MediaPlayerState.DEFAULT
+        mediaPlayer.reset()
     }
 
 }

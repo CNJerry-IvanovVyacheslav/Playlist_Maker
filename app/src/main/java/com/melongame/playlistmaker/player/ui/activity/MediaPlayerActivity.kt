@@ -1,18 +1,15 @@
 package com.melongame.playlistmaker.player.ui.activity
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.util.TypedValue
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.melongame.playlistmaker.databinding.ActivityPlayerBinding
 import com.melongame.playlistmaker.R
+import com.melongame.playlistmaker.player.domain.models.AudioPlayerState
 import com.melongame.playlistmaker.player.ui.view_model.MediaPlayerViewModel
 import com.melongame.playlistmaker.search.domain.models.Track
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,10 +20,6 @@ class MediaPlayerActivity : AppCompatActivity() {
 
     private val viewModel: MediaPlayerViewModel by viewModel()
     private lateinit var binding: ActivityPlayerBinding
-    private lateinit var playButton: ImageView
-    private lateinit var updateProgressRunnable: Runnable
-    private lateinit var playerTime: TextView
-    private val handler = Handler(Looper.getMainLooper())
     private val dateFormat = SimpleDateFormat("mm:ss", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,101 +31,75 @@ class MediaPlayerActivity : AppCompatActivity() {
 
         val track = intent.getParcelableExtra<Track>(KEY_TRACK)
 
-        viewModel.setTrack(track)
-        Log.i("Player", "Трек установлен")
-
-        val url = viewModel.pState.value?.track?.previewUrl
-        Log.i("Player", "url превьюхи записан")
-
-        val backButton = binding.playerBackButton
-        playerTime = binding.playerTime
-
-        playButton = binding.playerPlayTrack
-        Log.i("Player", "вьюхи забинжены")
+        val url = track?.previewUrl
 
         viewModel.pState.observe(this) { state ->
-            val track = state.track
-            Log.i("Player", "обсервер сработал")
 
-            showTrack(track!!)
-            playButton.isEnabled = state.isPrepared
-            playButton.setImageResource(if (state.isPlaying) R.drawable.ic_pause else R.drawable.ic_play_track)
-            playerTime.text = dateFormat.format(state.currentPosition)
-            Log.i("TimeChanged", "Время обновилось (по идее)!")
+            if (track != null) {
+                binding.playerTrackName.text = track.trackName
+                binding.playerArtistName.text = track.artistName
+                binding.releaseDate.text = track.releaseDate.substring(0, 4)
+                binding.playerPrimaryGenre.text = track.primaryGenreName
+                binding.playerCountryName.text = track.country
+                binding.playerTrackTimeMills.text = dateFormat.format(track.trackTime)
+                binding.playerTime.text = dateFormat.format(state.progress)
+                binding.playerPlayTrack.isEnabled = state.isPlayButtonEnabled
+
+
+                Glide.with(this)
+                    .load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
+                    .placeholder(R.drawable.placeholder)
+                    .centerCrop()
+                    .transform(
+                        RoundedCorners(
+                            TypedValue.applyDimension(
+                                TypedValue.COMPLEX_UNIT_DIP,
+                                8F,
+                                resources.displayMetrics
+                            ).toInt()
+                        )
+                    )
+                    .into(binding.playerImage)
+
+                val isCollectionNameVisible = viewModel.getCollectionNameVisibility(track)
+                binding.playerAlbumName.isVisible = isCollectionNameVisible
+                binding.playerAlbum.isVisible = isCollectionNameVisible
+
+                if (isCollectionNameVisible) {
+                    binding.playerAlbumName.text = track.collectionName
+                }
+
+                when (state) {
+                    is AudioPlayerState.Playing -> binding.playerPlayTrack.setImageResource(R.drawable.ic_pause)
+
+                    else -> binding.playerPlayTrack.setImageResource(R.drawable.ic_play_track)
+                }
+            }
         }
 
         viewModel.preparePlayer(url)
 
-        backButton.setOnClickListener { finish() }
+        binding.playerBackButton.setOnClickListener { finish() }
 
-        playButton.setOnClickListener { playbackControl() }
+        binding.playerPlayTrack.setOnClickListener { playbackControl() }
 
-
-        updateProgressRunnable = object : Runnable {
-            override fun run() {
-                viewModel.updateCurrentPosition()
-                Log.i("TimeChanged", "Время обновилось!")
-                handler.postDelayed(this, TIME_DELAY)
-            }
-        }
-        handler.post(updateProgressRunnable)
-    }
-
-    private fun showTrack(track: Track) {
-        binding.apply {
-            Log.i("Player", "Трек существует")
-            playerTrackName.text = track.trackName
-            playerArtistName.text = track.artistName
-            releaseDate.text = track.releaseDate.substring(0, 4)
-            playerPrimaryGenre.text = track.primaryGenreName
-            playerCountryName.text = track.country
-            playerTrackTimeMills.text =
-                SimpleDateFormat("mm:ss", Locale.getDefault()).format(track.trackTime)
-
-            Glide.with(playerImage)
-                .load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
-                .placeholder(R.drawable.placeholder)
-                .centerCrop()
-                .transform(
-                    RoundedCorners(
-                        TypedValue.applyDimension(
-                            TypedValue.COMPLEX_UNIT_DIP,
-                            8F,
-                            resources.displayMetrics
-                        ).toInt()
-                    )
-                )
-                .into(playerImage)
-
-            val isCollectionNameVisible = viewModel.getCollectionNameVisibility(track)
-            playerAlbumName.isVisible = isCollectionNameVisible
-            playerAlbum.isVisible = isCollectionNameVisible
-
-            if (isCollectionNameVisible) {
-                playerAlbumName.text = track.collectionName
-            }
-        }
     }
 
     override fun onPause() {
         super.onPause()
         viewModel.pausePlayer()
-        Log.i("Player", "Пауза")
     }
 
     override fun onDestroy() {
         super.onDestroy()
         viewModel.release()
-        handler.removeCallbacks(updateProgressRunnable)
-        Log.i("Player", "Активити плейера уничтожена")
     }
 
     private fun playbackControl() {
         viewModel.playbackControl()
     }
 
-    private companion object {
+    companion object {
         private const val KEY_TRACK = "track"
-        const val TIME_DELAY = 500L
     }
 }

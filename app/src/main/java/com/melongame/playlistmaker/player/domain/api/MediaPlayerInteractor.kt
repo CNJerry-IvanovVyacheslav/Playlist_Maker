@@ -1,10 +1,8 @@
 package com.melongame.playlistmaker.player.domain.api
 
-import com.melongame.playlistmaker.search.domain.models.Track
 
 interface MediaPlayerInteractor {
 
-    fun getTrackFromJson(trackJsonString: String?): Track
     fun currentPosition(): Int
     fun preparePlayer(
         url: String?,
@@ -14,7 +12,6 @@ interface MediaPlayerInteractor {
 
     fun startPlayer()
     fun pausePlayer()
-    fun playbackControl(): Boolean
     fun release()
 
 }

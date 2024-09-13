@@ -6,15 +6,17 @@ import com.melongame.playlistmaker.search.data.network.TrackSearchRequest
 import com.melongame.playlistmaker.search.domain.api.TrackRepository
 import com.melongame.playlistmaker.search.domain.models.Track
 import com.melongame.playlistmaker.util.SearchResult
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 
 class TrackRepositoryImpl(private val networkClient: NetworkClient) :
     TrackRepository {
 
-    override fun searchTrack(expression: String): SearchResult<List<Track>> {
+    override fun searchTrack(expression: String): Flow<SearchResult<List<Track>>> = flow {
         val response = networkClient.doRequest(TrackSearchRequest(expression))
-        return when (response.resultCode) {
+        when (response.resultCode) {
             RESULT_SUCCESS -> {
-                SearchResult.Success((response as TracksResponse).tracks.map {
+                emit(SearchResult.Success((response as TracksResponse).tracks.map {
                     Track(
                         it.trackName ?: "",
                         it.artistName ?: "",
@@ -26,15 +28,15 @@ class TrackRepositoryImpl(private val networkClient: NetworkClient) :
                         it.country ?: "",
                         it.previewUrl ?: ""
                     )
-                })
+                }))
             }
 
             RESULT_NO_CONNECTION -> {
-                SearchResult.Error(RESULT_NO_CONNECTION)
+                emit(SearchResult.Error(RESULT_NO_CONNECTION))
             }
 
             else -> {
-                SearchResult.Error(RESULT_ERROR)
+                emit(SearchResult.Error(RESULT_ERROR))
             }
         }
     }
