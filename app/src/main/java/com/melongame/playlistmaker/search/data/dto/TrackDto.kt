@@ -1,7 +1,6 @@
 package com.melongame.playlistmaker.search.data.dto
 
 import com.google.gson.annotations.SerializedName
-import java.io.Serializable
 
 data class TrackDto(
     val trackName: String?,
@@ -13,4 +12,4 @@ data class TrackDto(
     val primaryGenreName: String?,
     val country: String?,
     val previewUrl: String?,
-) : Serializable
+)

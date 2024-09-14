@@ -12,7 +12,9 @@ import com.melongame.playlistmaker.databinding.FragmentMediaBinding
 import com.melongame.playlistmaker.media_ui.view_model.MediaViewModel
 
 class LibraryFragment : Fragment() {
-    private lateinit var binding: FragmentMediaBinding
+    private var _binding: FragmentMediaBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var tabMediator: TabLayoutMediator
 
     private val viewModel: MediaViewModel by viewModels()
@@ -20,9 +22,9 @@ class LibraryFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentMediaBinding.inflate(layoutInflater)
+        _binding = FragmentMediaBinding.inflate(layoutInflater)
         return binding.root
     }
 
@@ -43,6 +45,7 @@ class LibraryFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         tabMediator.detach()
+        _binding = null
     }
 
     companion object {

@@ -22,7 +22,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SearchFragment : Fragment() {
 
-    private lateinit var binding: FragmentSearchBinding
+    private var _binding: FragmentSearchBinding? = null
+    private val binding get() = _binding!!
     private val viewModel by viewModel<SearchViewModel>()
     private var inputText: String = TEXT_DEF
     private val adapter = TrackAdapter()
@@ -32,9 +33,9 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -118,19 +119,20 @@ class SearchFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.onDestroy()
+        _binding = null
     }
-        override fun onSaveInstanceState(outState: Bundle) {
-            super.onSaveInstanceState(outState)
-            outState.putString(KEY_SEARCH_TEXT, inputText)
-        }
 
-        override fun onViewStateRestored(savedInstanceState: Bundle?) {
-            super.onViewStateRestored(savedInstanceState)
-            if (savedInstanceState != null) {
-                inputText = savedInstanceState.getString(KEY_SEARCH_TEXT, TEXT_DEF)
-            }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(KEY_SEARCH_TEXT, inputText)
+    }
+
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        if (savedInstanceState != null) {
+            inputText = savedInstanceState.getString(KEY_SEARCH_TEXT, TEXT_DEF)
         }
+    }
 
     private fun hideAllViews() {
         binding.trackSearch.isVisible = false
@@ -163,10 +165,11 @@ class SearchFragment : Fragment() {
         hideAllViews()
         binding.searchNothing.isVisible = true
     }
-        private fun searchRequest(track: String) {
-            lastTrack = track
-            viewModel.searchRequest(track)
-        }
+
+    private fun searchRequest(track: String) {
+        lastTrack = track
+        viewModel.searchRequest(track)
+    }
 
     private fun historyVisibility() {
         val history = viewModel.getSearchHistory()
@@ -191,21 +194,24 @@ class SearchFragment : Fragment() {
 
             val audioPlayerIntent = Intent(requireContext(), MediaPlayerActivity::class.java)
             audioPlayerIntent.putExtra(KEY_TRACK, track)
-            startActivity(audioPlayerIntent)}
-    }
-        private fun setState(state: SearchState) {
-            when (state) {
-                is SearchState.Loading -> showProgressbar()
-                is SearchState.TrackList -> {
-                    showTrackList()
-                    adapter.tracks = state.tracks
-                    adapter.notifyDataSetChanged()
-                }
-                is SearchState.HistoryTrackList -> historyVisibility()
-                is SearchState.ServerError -> showServerError()
-                is SearchState.NotFound -> showNotFound()
-            }
+            startActivity(audioPlayerIntent)
         }
+    }
+
+    private fun setState(state: SearchState) {
+        when (state) {
+            is SearchState.Loading -> showProgressbar()
+            is SearchState.TrackList -> {
+                showTrackList()
+                adapter.tracks = state.tracks
+                adapter.notifyDataSetChanged()
+            }
+
+            is SearchState.HistoryTrackList -> historyVisibility()
+            is SearchState.ServerError -> showServerError()
+            is SearchState.NotFound -> showNotFound()
+        }
+    }
 
     companion object {
         const val KEY_TRACK = "track"
