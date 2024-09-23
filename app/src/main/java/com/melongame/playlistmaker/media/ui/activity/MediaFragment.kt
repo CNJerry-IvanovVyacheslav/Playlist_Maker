@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.media_ui.activity
+package com.melongame.playlistmaker.media.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import com.google.android.material.tabs.TabLayoutMediator
 import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.databinding.FragmentMediaBinding
-import com.melongame.playlistmaker.media_ui.view_model.MediaViewModel
+import com.melongame.playlistmaker.media.ui.view_model.MediaViewModel
 
 class LibraryFragment : Fragment() {
     private var _binding: FragmentMediaBinding? = null

@@ -1,5 +1,8 @@
 package com.melongame.playlistmaker.di
 
+import com.melongame.playlistmaker.media.data.converters.TrackDbConvertor
+import com.melongame.playlistmaker.media.data.impl.FavoritesRepositoryImpl
+import com.melongame.playlistmaker.media.domain.bd.FavoritesRepository
 import com.melongame.playlistmaker.player.data.MediaPlayerRepositoryImpl
 import com.melongame.playlistmaker.player.domain.api.MediaPlayerRepository
 import com.melongame.playlistmaker.search.data.impl.SearchHistoryRepositoryImpl
@@ -15,7 +18,7 @@ import org.koin.dsl.module
 val repositoryModule = module {
 
     single<TrackRepository> {
-        TrackRepositoryImpl(get())
+        TrackRepositoryImpl(get(), get())
     }
 
     factory<MediaPlayerRepository> {
@@ -23,7 +26,7 @@ val repositoryModule = module {
     }
 
     single<SearchHistoryRepository> {
-        SearchHistoryRepositoryImpl(get(), get())
+        SearchHistoryRepositoryImpl(get(), get(), get())
     }
 
     single<SettingsRepository> {
@@ -32,5 +35,11 @@ val repositoryModule = module {
 
     single<ExternalNavigator> {
         ExternalNavigatorImpl(get())
+    }
+
+    factory { TrackDbConvertor() }
+
+    single<FavoritesRepository> {
+        FavoritesRepositoryImpl(get(), get())
     }
 }

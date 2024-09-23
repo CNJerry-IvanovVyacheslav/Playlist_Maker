@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/Theme.PlaylistMaker"
-    tools:context="com.melongame.playlistmaker.media_ui.activity.LibraryFragment">
+    tools:context="com.melongame.playlistmaker.media.ui.activity.LibraryFragment">
 
     <Button
         style="@style/FunctionalButton"

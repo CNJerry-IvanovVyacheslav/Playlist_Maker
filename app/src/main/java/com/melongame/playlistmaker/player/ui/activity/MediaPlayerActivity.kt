@@ -5,6 +5,7 @@ import android.util.Log
 import android.util.TypedValue
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.melongame.playlistmaker.databinding.ActivityPlayerBinding
@@ -12,6 +13,7 @@ import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.player.domain.models.AudioPlayerState
 import com.melongame.playlistmaker.player.ui.view_model.MediaPlayerViewModel
 import com.melongame.playlistmaker.search.domain.models.Track
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.Locale
@@ -33,7 +35,15 @@ class MediaPlayerActivity : AppCompatActivity() {
 
         val url = track?.previewUrl
 
-        viewModel.pState.observe(this) { state ->
+        if (track != null) {
+
+            viewModel.isFavorite.observe(this) { isFavorite ->
+                updateFavoriteButton(isFavorite)
+            }
+            viewModel.setIsFavorite(track.isFavorite)
+        }
+
+        viewModel.playerState.observe(this) { state ->
 
             if (track != null) {
                 binding.playerTrackName.text = track.trackName
@@ -83,6 +93,25 @@ class MediaPlayerActivity : AppCompatActivity() {
 
         binding.playerPlayTrack.setOnClickListener { playbackControl() }
 
+        binding.playerLikeTrack.setOnClickListener {
+            if (track != null) {
+                viewModel.onFavoriteClicked(track)
+            }
+        }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val track = intent.getParcelableExtra<Track>(KEY_TRACK)
+        if (track != null) {
+            lifecycleScope.launch {
+                val isFavorite = viewModel.isTrackFavorite(track.trackId)
+                viewModel.setIsFavorite(isFavorite)
+                track.isFavorite = isFavorite
+            }
+        }
+
     }
 
     override fun onPause() {
@@ -97,6 +126,14 @@ class MediaPlayerActivity : AppCompatActivity() {
 
     private fun playbackControl() {
         viewModel.playbackControl()
+    }
+
+    private fun updateFavoriteButton(isFavorite: Boolean) {
+        if (isFavorite) {
+            binding.playerLikeTrack.setImageResource(R.drawable.ic_like_track)
+        } else {
+            binding.playerLikeTrack.setImageResource(R.drawable.ic_like_track)
+        }
     }
 
     companion object {

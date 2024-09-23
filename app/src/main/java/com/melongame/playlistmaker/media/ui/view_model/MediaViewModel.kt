@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.media_ui.view_model
+package com.melongame.playlistmaker.media.ui.view_model
 
 import androidx.lifecycle.ViewModel
 

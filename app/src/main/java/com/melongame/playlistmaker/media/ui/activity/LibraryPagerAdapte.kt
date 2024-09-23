@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.media_ui.activity
+package com.melongame.playlistmaker.media.ui.activity
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

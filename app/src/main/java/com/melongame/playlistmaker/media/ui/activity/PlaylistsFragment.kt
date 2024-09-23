@@ -1,24 +1,22 @@
-package com.melongame.playlistmaker.media_ui.activity
+package com.melongame.playlistmaker.media.ui.activity
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.melongame.playlistmaker.databinding.FragmentFavoriteBinding
+import com.melongame.playlistmaker.databinding.FragmentPlaylistBinding
 
+class PlaylistsFragment : Fragment() {
 
-class FavoritesFragment : Fragment() {
-
-    private var _binding: FragmentFavoriteBinding? = null
+    private var _binding: FragmentPlaylistBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
+        _binding = FragmentPlaylistBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -28,6 +26,7 @@ class FavoritesFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance() = FavoritesFragment()
+        fun newInstance() = PlaylistsFragment()
+
     }
 }

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="?attr/colorOnSecondary"
     android:orientation="vertical"
-    tools:context=".media_ui.activity.LibraryFragment">
+    tools:context=".media.ui.activity.LibraryFragment">
 
     <TextView
         style="@style/PageTitle"
