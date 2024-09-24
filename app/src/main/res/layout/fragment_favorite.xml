@@ -9,7 +9,7 @@
     tools:context="com.melongame.playlistmaker.media.ui.activity.FavoritesFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewFavorites"
+        android:id="@+id/rvFavorites"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

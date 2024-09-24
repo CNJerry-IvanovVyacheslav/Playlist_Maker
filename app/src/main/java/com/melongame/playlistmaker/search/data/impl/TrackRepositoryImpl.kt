@@ -17,35 +17,38 @@ class TrackRepositoryImpl(
 ) :
     TrackRepository {
 
-    override fun searchTrack(expression: String): Flow<SearchResult<List<Track>>> = flow {
-        val response = networkClient.doRequest(TrackSearchRequest(expression))
-        when (response.resultCode) {
-            RESULT_SUCCESS -> {
-                val favoriteTrackIds =
-                    appDatabase.trackDao().getFavoriteTracks().first().map { it.trackId }.toSet()
-                emit(SearchResult.Success((response as TracksResponse).tracks.map {
-                    Track(
-                        it.trackId,
-                        it.trackName ?: "",
-                        it.artistName ?: "",
-                        it.trackTime ?: 0L,
-                        it.artworkUrl100 ?: "",
-                        it.collectionName ?: "",
-                        it.releaseDate ?: "",
-                        it.primaryGenreName ?: "",
-                        it.country ?: "",
-                        it.previewUrl ?: "",
-                        isFavorite = favoriteTrackIds.contains(it.trackId)
-                    )
-                }))
-            }
+    override fun searchTrack(expression: String): Flow<SearchResult<List<Track>>> {
+        return flow {
+            val response = networkClient.doRequest(TrackSearchRequest(expression))
+            when (response.resultCode) {
+                RESULT_SUCCESS -> {
+                    val favoriteTrackIds =
+                        appDatabase.trackDao().getFavoriteTracks().first().map { it.trackId }
+                            .toSet()
+                    emit(SearchResult.Success((response as TracksResponse).tracks.map {
+                        Track(
+                            it.trackId,
+                            it.trackName ?: "",
+                            it.artistName ?: "",
+                            it.trackTime ?: 0L,
+                            it.artworkUrl100 ?: "",
+                            it.collectionName ?: "",
+                            it.releaseDate ?: "",
+                            it.primaryGenreName ?: "",
+                            it.country ?: "",
+                            it.previewUrl ?: "",
+                            isFavorite = favoriteTrackIds.contains(it.trackId)
+                        )
+                    }))
+                }
 
-            RESULT_NO_CONNECTION -> {
-                emit(SearchResult.Error(RESULT_NO_CONNECTION))
-            }
+                RESULT_NO_CONNECTION -> {
+                    emit(SearchResult.Error(RESULT_NO_CONNECTION))
+                }
 
-            else -> {
-                emit(SearchResult.Error(RESULT_ERROR))
+                else -> {
+                    emit(SearchResult.Error(RESULT_ERROR))
+                }
             }
         }
     }

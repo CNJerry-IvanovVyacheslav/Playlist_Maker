@@ -130,7 +130,7 @@ class MediaPlayerActivity : AppCompatActivity() {
 
     private fun updateFavoriteButton(isFavorite: Boolean) {
         if (isFavorite) {
-            binding.playerLikeTrack.setImageResource(R.drawable.ic_like_track)
+            binding.playerLikeTrack.setImageResource(R.drawable.ic_like_track_red)
         } else {
             binding.playerLikeTrack.setImageResource(R.drawable.ic_like_track)
         }

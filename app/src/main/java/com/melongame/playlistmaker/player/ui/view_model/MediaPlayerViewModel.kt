@@ -73,7 +73,7 @@ class MediaPlayerViewModel(
     private fun updateCurrentPosition() {
         timerJob = viewModelScope.launch {
             while (true) {
-                delay(UPDATE_TIME)
+                delay(UPDATE_TIME_MILLIS)
                 if (_playerState.value is AudioPlayerState.Playing) {
                     _playerState.postValue(AudioPlayerState.Playing(interactor.currentPosition()))
                 }
@@ -114,7 +114,7 @@ class MediaPlayerViewModel(
     }
 
     companion object {
-        private const val UPDATE_TIME = 300L
+        private const val UPDATE_TIME_MILLIS = 300L
         private const val SINGLE_NAME = "Single"
     }
 }

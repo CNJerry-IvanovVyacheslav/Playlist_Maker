@@ -38,8 +38,8 @@ class FavoritesFragment : Fragment() {
         viewModel.observeState().observe(viewLifecycleOwner) {
             setState(it)
         }
-        binding.recyclerViewFavorites.adapter = adapter
-        binding.recyclerViewFavorites.layoutManager =
+        binding.rvFavorites.adapter = adapter
+        binding.rvFavorites.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         adapter.onItemClick = { track -> onTrackClicked(track) }
@@ -54,13 +54,13 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun showNotFound() {
-        binding.recyclerViewFavorites.isVisible = false
+        binding.rvFavorites.isVisible = false
         binding.placeholderNotFound.isVisible = true
     }
 
     private fun showTrackList() {
         binding.placeholderNotFound.isVisible = false
-        binding.recyclerViewFavorites.isVisible = true
+        binding.rvFavorites.isVisible = true
     }
 
     private fun setState(state: FavoritesState) {
