@@ -4,12 +4,16 @@ import android.content.SharedPreferences
 import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.melongame.playlistmaker.media.data.db.AppDatabase
 import com.melongame.playlistmaker.search.domain.api.SearchHistoryRepository
 import com.melongame.playlistmaker.search.domain.models.Track
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
 
 class SearchHistoryRepositoryImpl(
     private val sharedPref: SharedPreferences,
     private val gson: Gson,
+    private val appDatabase: AppDatabase,
 ) : SearchHistoryRepository {
 
     private val editor = sharedPref.edit()
@@ -37,7 +41,14 @@ class SearchHistoryRepositoryImpl(
         val json = sharedPref.getString(SEARCH_HISTORY_KEY, null)
         val type = object : TypeToken<ArrayList<Track>>() {}.type
         Log.d("HistoryChanger", "История поиска получена!")
-        return gson.fromJson(json, type) ?: emptyList()
+        val history = gson.fromJson<ArrayList<Track>>(json, type) ?: arrayListOf()
+
+        val favoriteTrackIds = runBlocking {
+            appDatabase.trackDao().getFavoriteTracks().first().map { it.trackId }.toSet()
+        }
+        return history.map { track ->
+            track.copy(isFavorite = favoriteTrackIds.contains(track.trackId))
+        }
     }
 
 

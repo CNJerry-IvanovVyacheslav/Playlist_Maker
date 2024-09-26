@@ -2,6 +2,7 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 android {
@@ -50,6 +51,7 @@ android {
 }
 
 dependencies {
+    val room_version = "2.6.1"
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -72,6 +74,9 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
     implementation("androidx.fragment:fragment-ktx:1.8.2")
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.08.00"))
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
     testImplementation("junit:junit:4.13.2")

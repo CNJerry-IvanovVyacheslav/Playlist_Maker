@@ -1,8 +1,8 @@
 package com.melongame.playlistmaker.di
 
-import com.melongame.playlistmaker.media_ui.view_model.FavoritesFragmentViewModel
-import com.melongame.playlistmaker.media_ui.view_model.MediaViewModel
-import com.melongame.playlistmaker.media_ui.view_model.PlaylistsFragmentViewModel
+import com.melongame.playlistmaker.media.ui.view_model.FavoritesFragmentViewModel
+import com.melongame.playlistmaker.media.ui.view_model.MediaViewModel
+import com.melongame.playlistmaker.media.ui.view_model.PlaylistsFragmentViewModel
 import com.melongame.playlistmaker.player.ui.view_model.MediaPlayerViewModel
 import com.melongame.playlistmaker.search.ui.view_model.SearchViewModel
 import com.melongame.playlistmaker.settings.ui.view_model.SettingsViewModel
@@ -15,7 +15,7 @@ val viewModelModule = module {
         SearchViewModel(get())
     }
     viewModel<MediaPlayerViewModel> {
-        MediaPlayerViewModel(get())
+        MediaPlayerViewModel(get(), get())
     }
 
     viewModel<SettingsViewModel> {
@@ -25,7 +25,7 @@ val viewModelModule = module {
         MediaViewModel()
     }
     viewModel<FavoritesFragmentViewModel> {
-        FavoritesFragmentViewModel()
+        FavoritesFragmentViewModel(get())
     }
     viewModel<PlaylistsFragmentViewModel> {
         PlaylistsFragmentViewModel()

@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/libraryFragment"
-        android:name="com.melongame.playlistmaker.media_ui.activity.LibraryFragment"
+        android:name="com.melongame.playlistmaker.media.ui.activity.LibraryFragment"
         android:label="fragment_library"
         tools:layout="@layout/fragment_media" />
     <fragment

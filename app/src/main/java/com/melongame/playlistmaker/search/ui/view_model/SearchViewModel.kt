@@ -57,6 +57,10 @@ class SearchViewModel(private val trackInteractor: TrackInteractor) : ViewModel(
         }
     }
 
+    fun setDefaultState() {
+        stateLiveData.postValue(SearchState.Default)
+    }
+
     fun retryLastSearch() {
         lastTrack?.let {
             searchRequest(it)

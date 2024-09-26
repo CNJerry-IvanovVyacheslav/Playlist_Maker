@@ -6,14 +6,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:theme="@style/Theme.PlaylistMaker"
-    tools:context="com.melongame.playlistmaker.media_ui.activity.FavoritesFragment">
+    tools:context="com.melongame.playlistmaker.media.ui.activity.FavoritesFragment">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvFavorites"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/placeholderNotFound"
         style="@style/PlaceholderStyle"
         android:text="@string/empty_library"
-        android:visibility="visible"
         app:drawableTopCompat="@drawable/nothing_was_found" />
 
 </LinearLayout>
