@@ -17,7 +17,7 @@ import com.melongame.playlistmaker.search.ui.activity.TrackAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class FavoritesFragment : Fragment() {
+open class FavoritesFragment : Fragment() {
 
     private val viewModel by viewModel<FavoritesFragmentViewModel>()
     private var _binding: FragmentFavoriteBinding? = null

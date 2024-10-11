@@ -1,4 +1,4 @@
-package com.melongame.playlistmaker.media.domain.bd
+package com.melongame.playlistmaker.media.domain.api
 
 import com.melongame.playlistmaker.media.data.db.entity.TrackEntity
 import com.melongame.playlistmaker.search.domain.models.Track

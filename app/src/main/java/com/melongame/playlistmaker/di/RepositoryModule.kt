@@ -1,8 +1,14 @@
 package com.melongame.playlistmaker.di
 
-import com.melongame.playlistmaker.media.data.converters.TrackDbConvertor
+import com.melongame.playlistmaker.media.data.converters.PlaylistDbConverter
+import com.melongame.playlistmaker.media.data.converters.PlaylistTrackDbConverter
+import com.melongame.playlistmaker.media.data.converters.TrackDbConverter
+import com.melongame.playlistmaker.media.data.impl.CreatePlaylistRepositoryImpl
 import com.melongame.playlistmaker.media.data.impl.FavoritesRepositoryImpl
-import com.melongame.playlistmaker.media.domain.bd.FavoritesRepository
+import com.melongame.playlistmaker.media.data.impl.PlaylistRepositoryImpl
+import com.melongame.playlistmaker.media.domain.api.CreatePlaylistRepository
+import com.melongame.playlistmaker.media.domain.api.FavoritesRepository
+import com.melongame.playlistmaker.media.domain.api.PlaylistRepository
 import com.melongame.playlistmaker.player.data.MediaPlayerRepositoryImpl
 import com.melongame.playlistmaker.player.domain.api.MediaPlayerRepository
 import com.melongame.playlistmaker.search.data.impl.SearchHistoryRepositoryImpl
@@ -37,9 +43,18 @@ val repositoryModule = module {
         ExternalNavigatorImpl(get())
     }
 
-    factory { TrackDbConvertor() }
+    factory { TrackDbConverter() }
+    factory { PlaylistDbConverter() }
+    factory { PlaylistTrackDbConverter() }
 
     single<FavoritesRepository> {
         FavoritesRepositoryImpl(get(), get())
+    }
+
+    single<CreatePlaylistRepository> {
+        CreatePlaylistRepositoryImpl(get(), get())
+    }
+    single<PlaylistRepository> {
+        PlaylistRepositoryImpl(get(), get(), get())
     }
 }

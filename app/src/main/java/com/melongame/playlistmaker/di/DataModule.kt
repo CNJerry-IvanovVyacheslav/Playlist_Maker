@@ -16,15 +16,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 val dataModule = module {
     single<ITunesApi> {
-        Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(ITunesApi::class.java)
+        Retrofit.Builder().baseUrl(BASE_URL).addConverterFactory(GsonConverterFactory.create())
+            .build().create(ITunesApi::class.java)
     }
     single {
-        androidContext()
-            .getSharedPreferences(SEARCH_HISTORY_KEY, Context.MODE_PRIVATE)
+        androidContext().getSharedPreferences(SEARCH_HISTORY_KEY, Context.MODE_PRIVATE)
     }
     factory { Gson() }
     single<NetworkClient> {
@@ -35,14 +31,13 @@ val dataModule = module {
     }
     single(named(NAME_OF_PREFERENCE)) {
         androidContext().getSharedPreferences(
-            THEME_SWITCHER_KEY,
-            Context.MODE_PRIVATE
+            THEME_SWITCHER_KEY, Context.MODE_PRIVATE
         )
     }
 
     single {
         Room.databaseBuilder(androidContext(), AppDatabase::class.java, DATABASE_DB)
-            .build()
+            .fallbackToDestructiveMigration().build()
     }
 
 }
