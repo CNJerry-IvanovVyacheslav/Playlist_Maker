@@ -181,7 +181,7 @@ class CreatePlaylistFragment : Fragment() {
     }
 
     private fun showExitConfirmationDialog() {
-        AlertDialog.Builder(requireContext()).setTitle(R.string.exit_creation_title)
+        AlertDialog.Builder(context, R.style.AlertDialogCustom).setTitle(R.string.exit_creation_title)
             .setMessage(R.string.exit_creation_message).setPositiveButton(R.string.finish) { _, _ ->
                 requireActivity().supportFragmentManager.popBackStack()
             }.setNegativeButton(R.string.cancel, null).create().show()

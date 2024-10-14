@@ -79,6 +79,10 @@
         <item name="android:background">@color/grey_search_bar</item>
     </style>
 
+    <style name="SetColorForIcon">
+        <item name="android:background">@color/grey_search_bar</item>
+    </style>
+
     <style name="BaseForSearchBar">
         <item name="android:gravity">center_vertical</item>
         <item name="android:orientation">horizontal</item>
@@ -253,7 +257,15 @@
         <item name="boxBackgroundColor">?attr/colorOnSecondary</item>
         <item name="hintTextColor">@color/box_stroke_color_selector</item>
         <item name="boxStrokeColor">@color/box_stroke_color_selector</item>
-        <item name="android:textCursorDrawable">@drawable/cursor_color</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <!-- Background Color-->
+        <item name="android:background">@color/white</item>
+        <!-- Text Color for title and message -->
+        <item name="colorOnSurface">@color/black</item>
+        <!-- Text Color for buttons -->
+        <item name="colorPrimary">@color/track_arrow</item>
     </style>
 
 </resources>

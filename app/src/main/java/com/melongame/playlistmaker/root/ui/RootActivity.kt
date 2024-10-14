@@ -33,10 +33,12 @@ class RootActivity : AppCompatActivity() {
 
     private fun hideBottomNavigationView() {
         binding.bottomNavigationView.isVisible = false
+        binding.BottomNavigationLine.isVisible = false
     }
 
     private fun showBottomNavigationView() {
         binding.bottomNavigationView.isVisible = true
+        binding.BottomNavigationLine.isVisible = true
     }
 
 }
