@@ -1,7 +1,11 @@
 package com.melongame.playlistmaker.di
 
-import com.melongame.playlistmaker.media.domain.bd.FavoritesInteractor
+import com.melongame.playlistmaker.media.domain.api.CreatePlaylistInteractor
+import com.melongame.playlistmaker.media.domain.api.FavoritesInteractor
+import com.melongame.playlistmaker.media.domain.api.PlaylistInteractor
+import com.melongame.playlistmaker.media.domain.impl.CreatePlaylistInteractorImpl
 import com.melongame.playlistmaker.media.domain.impl.FavoritesInteractorImpl
+import com.melongame.playlistmaker.media.domain.impl.PlaylistInteractorImpl
 import com.melongame.playlistmaker.player.domain.api.MediaPlayerInteractor
 import com.melongame.playlistmaker.player.domain.impl.MediaPlayerInteractorImpl
 import com.melongame.playlistmaker.search.domain.api.TrackInteractor
@@ -32,5 +36,13 @@ val interactorModule = module {
 
     single<FavoritesInteractor> {
         FavoritesInteractorImpl(get())
+    }
+
+    single<CreatePlaylistInteractor> {
+        CreatePlaylistInteractorImpl(get())
+    }
+
+    single<PlaylistInteractor> {
+        PlaylistInteractorImpl(get())
     }
 }

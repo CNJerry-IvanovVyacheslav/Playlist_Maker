@@ -3,7 +3,7 @@ package com.melongame.playlistmaker.media.data.converters
 import com.melongame.playlistmaker.media.data.db.entity.TrackEntity
 import com.melongame.playlistmaker.search.domain.models.Track
 
-class TrackDbConvertor {
+class TrackDbConverter {
     fun map(track: TrackEntity): Track {
         return Track(
             track.trackId,

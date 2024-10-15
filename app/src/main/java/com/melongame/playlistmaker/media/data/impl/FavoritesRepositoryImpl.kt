@@ -1,23 +1,23 @@
 package com.melongame.playlistmaker.media.data.impl
 
 import android.util.Log
-import com.melongame.playlistmaker.media.data.converters.TrackDbConvertor
+import com.melongame.playlistmaker.media.data.converters.TrackDbConverter
 import com.melongame.playlistmaker.media.data.db.AppDatabase
 import com.melongame.playlistmaker.media.data.db.entity.TrackEntity
-import com.melongame.playlistmaker.media.domain.bd.FavoritesRepository
+import com.melongame.playlistmaker.media.domain.api.FavoritesRepository
 import com.melongame.playlistmaker.search.domain.models.Track
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class FavoritesRepositoryImpl(
     private val appDatabase: AppDatabase,
-    private val trackDbConvertor: TrackDbConvertor,
+    private val trackDbConverter: TrackDbConverter,
 ) : FavoritesRepository {
     override fun getFavoriteTracks(): Flow<List<Track>> {
         return appDatabase.trackDao().getFavoriteTracks()
             .map { entities ->
                 Log.d("FavoritesRepository", "Получен(-о) ${entities.size} трек(-ов) из базы")
-                entities.map { trackDbConvertor.map(it) }
+                entities.map { trackDbConverter.map(it) }
             }
     }
 
@@ -26,7 +26,7 @@ class FavoritesRepositoryImpl(
     }
 
     override fun convertToTrackEntity(track: Track): TrackEntity {
-        return trackDbConvertor.map(track)
+        return trackDbConverter.map(track)
     }
 
     override suspend fun deleteFromFavorites(trackEntity: TrackEntity) {

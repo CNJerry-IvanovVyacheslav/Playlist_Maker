@@ -41,8 +41,8 @@
             android:text="@string/share" />
 
         <ImageView
-            style="@style/IconInSettings"
-            android:src="@drawable/share_light" />
+            android:src="@drawable/share_light"
+            style="@style/IconInSettings" />
     </FrameLayout>
 
     <FrameLayout

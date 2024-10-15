@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/playlist"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?android:attr/selectableItemBackground"
+    android:clickable="true"
+    android:orientation="horizontal"
+    android:paddingStart="@dimen/dimens_12dp"
+    android:paddingTop="@dimen/dimens_16dp">
+
+    <ImageView
+        android:id="@+id/imageViewArtwork"
+        android:layout_width="@dimen/dimens_48dp"
+        android:layout_height="@dimen/dimens_48dp"
+        android:scaleType="centerCrop" />
+
+    <LinearLayout
+        android:layout_width="@dimen/dimens_0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dimens_8dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textViewPlaylistName"
+            style="@style/TracksText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorOnPrimary"
+            tools:text="Playlist Name" />
+
+
+        <TextView
+            android:id="@+id/textViewTrackCount"
+            style="@style/TracksText.artist"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="?attr/colorOnPrimary"
+            tools:text="0 треков" />
+
+    </LinearLayout>
+</LinearLayout>
