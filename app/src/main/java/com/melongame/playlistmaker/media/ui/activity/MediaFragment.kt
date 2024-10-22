@@ -35,8 +35,8 @@ class LibraryFragment : Fragment() {
 
         tabMediator = TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = getString(R.string.favorites)
-                1 -> tab.text = getString(R.string.playlists)
+                ZERO -> tab.text = getString(R.string.favorites)
+                ONE -> tab.text = getString(R.string.playlists)
             }
         }
         tabMediator.attach()
@@ -52,6 +52,9 @@ class LibraryFragment : Fragment() {
         fun newInstance(): Fragment {
             return LibraryFragment()
         }
+
+        private const val ZERO = 0
+        private const val ONE = 1
 
     }
 }

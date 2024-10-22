@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.melongame.playlistmaker.R
 import com.melongame.playlistmaker.databinding.PlaylistGridLayoutBinding
 import com.melongame.playlistmaker.media.domain.models.Playlist
 
@@ -14,7 +15,10 @@ class PlaylistViewHolder(private val binding: PlaylistGridLayoutBinding) :
 
     fun bind(playlist: Playlist) {
         binding.playlistName.text = playlist.name
-        binding.tvPlaylistTrackQty.text = PlaylistTrackViewHolder.trackCount(playlist.trackCount)
+        binding.tvPlaylistTrackQty.text = itemView.resources.getQuantityString(
+            R.plurals.track_count, playlist.trackCount, playlist.trackCount
+        )
+
 
         if (playlist.coverImagePath.isNullOrEmpty()) {
             binding.playlistCover.isVisible = false

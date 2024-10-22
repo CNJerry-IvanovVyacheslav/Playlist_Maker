@@ -4,6 +4,8 @@ plugins {
     id("kotlin-parcelize")
     id("kotlin-kapt")
     id("androidx.room")
+    id("androidx.navigation.safeargs.kotlin")
+    id("org.jetbrains.kotlin.plugin.compose")
 }
 
 android {
@@ -56,9 +58,9 @@ android {
 
 dependencies {
     val room_version = "2.6.1"
-    val lifecycle_version = "2.8.4"
+    val lifecycle_version = "2.8.6"
     val retrofit2_version = "2.9.0"
-    val navigation_version = "2.7.7"
+    val navigation_version = "2.8.2"
 
     implementation("androidx.core:core-ktx:1.13.1")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -70,8 +72,8 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:$retrofit2_version")
     implementation("io.insert-koin:koin-android:3.3.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
-    implementation("androidx.activity:activity-compose:1.9.0")
-    implementation(platform("androidx.compose:compose-bom:2024.08.00"))
+    implementation("androidx.activity:activity-compose:1.9.2")
+    implementation(platform("androidx.compose:compose-bom:2024.09.03"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
@@ -82,8 +84,8 @@ dependencies {
     implementation("androidx.navigation:navigation-fragment-ktx:$navigation_version")
     implementation("androidx.navigation:navigation-ui-ktx:$navigation_version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
-    implementation("androidx.fragment:fragment-ktx:1.8.2")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.08.00"))
+    implementation("androidx.fragment:fragment-ktx:1.8.4")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.09.03"))
     implementation("androidx.room:room-runtime:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")

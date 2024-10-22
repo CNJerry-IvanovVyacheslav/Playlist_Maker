@@ -30,12 +30,12 @@ import com.melongame.playlistmaker.databinding.FragmentCreatePlaylistBinding
 import com.melongame.playlistmaker.media.ui.view_model.CreatePlaylistViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class CreatePlaylistFragment : Fragment() {
+open class CreatePlaylistFragment : Fragment() {
 
     private var _binding: FragmentCreatePlaylistBinding? = null
-    private val binding get() = _binding!!
+    protected val binding get() = _binding!!
 
-    private var selectedImageUri: Uri? = null
+    protected var selectedImageUri: Uri? = null
 
     private val createPlaylistViewModel: CreatePlaylistViewModel by viewModel()
 
@@ -124,11 +124,11 @@ class CreatePlaylistFragment : Fragment() {
     private fun selectImage() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             val intent = Intent(MediaStore.ACTION_PICK_IMAGES)
-            intent.type = "image/*"
+            intent.type = TYPE_FOR_INTENT
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE)
         } else {
             val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
+            intent.type = TYPE_FOR_INTENT
             startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE)
         }
     }
@@ -167,12 +167,12 @@ class CreatePlaylistFragment : Fragment() {
         val toast = Toast(requireContext())
         toast.duration = Toast.LENGTH_SHORT
         toast.view = layout
-        toast.setGravity(Gravity.BOTTOM or Gravity.FILL_HORIZONTAL, 0, 100)
+        toast.setGravity(Gravity.BOTTOM or Gravity.FILL_HORIZONTAL, 0, 0)
         toast.show()
     }
 
 
-    private fun handleBackNavigation() {
+    open fun handleBackNavigation() {
         if (binding.nameEditText.text?.isNotEmpty() == true || selectedImageUri != null || binding.descriptionEditText.text?.isNotEmpty() == true) {
             showExitConfirmationDialog()
         } else {
@@ -181,7 +181,8 @@ class CreatePlaylistFragment : Fragment() {
     }
 
     private fun showExitConfirmationDialog() {
-        AlertDialog.Builder(context, R.style.AlertDialogCustom).setTitle(R.string.exit_creation_title)
+        AlertDialog.Builder(context, R.style.AlertDialogCustom)
+            .setTitle(R.string.exit_creation_title)
             .setMessage(R.string.exit_creation_message).setPositiveButton(R.string.finish) { _, _ ->
                 requireActivity().supportFragmentManager.popBackStack()
             }.setNegativeButton(R.string.cancel, null).create().show()
@@ -194,6 +195,7 @@ class CreatePlaylistFragment : Fragment() {
 
     companion object {
         fun newInstance() = CreatePlaylistFragment()
-        private const val REQUEST_CODE_SELECT_IMAGE = 1
+        const val REQUEST_CODE_SELECT_IMAGE = 1
+        const val TYPE_FOR_INTENT = "image/*"
     }
 }

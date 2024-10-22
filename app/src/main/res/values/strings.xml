@@ -20,8 +20,14 @@
     <string name="you_find">Вы искали</string>
     <string name="clear_history">Очистить историю</string>
     <string name="time">00:00</string>
+    <string name="release_date">1965</string>
     <string name="duration">Длительность</string>
+    <string name="player_track_name">Track Name</string>
+    <string name="player_artist_name">Artist</string>
+    <string name="player_primary_genre">Rock</string>
+    <string name="player_country_name">Великобритания</string>
     <string name="album">Альбом</string>
+    <string name="player_album_name">Yesterday(Remasterd 2009)</string>
     <string name="year">Год</string>
     <string name="genre">Жанр</string>
     <string name="country">Страна</string>
@@ -35,16 +41,47 @@
     <string name="description_edit_text">Описание</string>
     <string name="create_button">Создать</string>
     <string name="playlist_created">Ваш плейлист создан</string>
+    <string name="add_to_playlist">Добавить в плейлист</string>
     <string name="playlist_created_message">Плейлист %1$s создан</string>
     <string name="exit_creation_title">Завершить создание плейлиста?</string>
     <string name="exit_creation_message">Все несохраненные данные будут потеряны</string>
     <string name="finish">Завершить</string>
     <string name="cancel">Отмена</string>
+    <string name="answer_no">Нет</string>
+    <string name="answer_yes">Да</string>
+    <string name="playlist_name">Playlist Name</string>
+    <string name="description">Description</string>
+    <string name="zero_minutes">0 минут</string>
+    <string name="zero_tracks">0 треков</string>
+
     <string name="failed_to_create_playlist">Ошибка при создании плейлиста</string>
     <string name="failed_to_save_image">Ошибка в сохранении файла</string>
     <string name="already_in_playlist">Трек уже добавлен в плейлист %1$s</string>
     <string name="added_to_playlist">Добавлено в плейлист %1$s</string>
     <string name="failed_to_add_to_playlist">Ошибка при добавлении в плейлист %1$s</string>
+    <string name="delete_track">"Удалить трек"</string>
+    <string name="delete_message">"Хотите удалить трек?"</string>
+    <string name="delete">"Удалить"</string>
+    <string name="share_playlist">"Поделиться"</string>
+    <string name="edit_information">"Редактировать информацию"</string>
+    <string name="delete_playlist">"Удалить плейлист"</string>
+    <string name="delete_playlist_message">"Вы уверены, что хотите удалить этот плейлист?"</string>
+    <string name="empty_playlist_message">"В этом плейлисте нет списка треков, которым можно поделиться"</string>
+    <string name="save">"Сохранить"</string>
+    <string name="edit_playlist">"Редактировать плейлист"</string>
+    <string name="empty_playlist">"В этом плейлисте пока нет треков"</string>
+    <plurals name="track_count">
+        <item quantity="one">%d трек</item>
+        <item quantity="few">%d трека</item>
+        <item quantity="many">%d треков</item>
+        <item quantity="other">%d треков</item>
+    </plurals>
+    <plurals name="minute_count">
+        <item quantity="one">%d минута</item>
+        <item quantity="few">%d минуты</item>
+        <item quantity="many">%d минут</item>
+        <item quantity="other">%d минут</item>
+    </plurals>
 
 
 </resources>

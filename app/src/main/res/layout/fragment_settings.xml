@@ -7,17 +7,17 @@
     android:theme="@style/Theme.PlaylistMaker"
     tools:context=".settings.ui.activity.SettingsFragment">
 
-        <TextView
-            style="@style/PageTitle"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="@dimen/dimens_16dp"
-            android:layout_marginTop="@dimen/dimens_16dp"
-            android:text="@string/settings" />
+    <TextView
+        style="@style/PageTitle"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="@dimen/dimens_16dp"
+        android:layout_marginTop="@dimen/dimens_16dp"
+        android:text="@string/settings" />
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="24dp">
+        android:layout_height="@dimen/dimens_60dp"
+        android:layout_marginTop="@dimen/dimens_24dp">
 
         <TextView
             style="@style/SettingsMenu"
@@ -34,21 +34,21 @@
     <FrameLayout
         android:id="@+id/shareTheApp"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="@dimen/dimens_60dp">
 
         <TextView
             style="@style/SettingsMenu"
             android:text="@string/share" />
 
         <ImageView
-            android:src="@drawable/share_light"
-            style="@style/IconInSettings" />
+            style="@style/IconInSettings"
+            android:src="@drawable/share_light" />
     </FrameLayout>
 
     <FrameLayout
         android:id="@+id/writeInSupport"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="@dimen/dimens_60dp">
 
         <TextView
             style="@style/SettingsMenu"
@@ -63,7 +63,7 @@
     <FrameLayout
         android:id="@+id/agreement"
         android:layout_width="match_parent"
-        android:layout_height="60dp">
+        android:layout_height="@dimen/dimens_60dp">
 
         <TextView
             style="@style/SettingsMenu"
