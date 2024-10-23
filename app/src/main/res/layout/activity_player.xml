@@ -15,7 +15,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="@dimen/dimens_16dp" />
 
     <ScrollView
         android:id="@+id/player_screen_view"
@@ -52,8 +52,8 @@
 
             <ImageView
                 android:id="@+id/player_image"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
+                android:layout_width="@dimen/dimens_0dp"
+                android:layout_height="@dimen/dimens_0dp"
                 android:layout_marginTop="@dimen/dimens_26dp"
                 android:importantForAccessibility="no"
                 android:scaleType="centerCrop"
@@ -67,31 +67,31 @@
             <TextView
                 android:id="@+id/player_track_name"
                 style="@style/PlayerAnotherText"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimens_0dp"
                 android:layout_marginTop="@dimen/dimens_24dp"
                 android:layout_marginBottom="@dimen/dimens_12dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="@dimen/default_for_title"
+                android:textSize="@dimen/text_size_22"
                 app:layout_constraintBottom_toTopOf="@+id/player_artist_name"
                 app:layout_constraintEnd_toStartOf="@id/right_guideline"
                 app:layout_constraintStart_toStartOf="@+id/left_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/player_image"
-                tools:text="Track Name" />
+                tools:text="@string/player_track_name" />
 
             <TextView
                 android:id="@+id/player_artist_name"
                 style="@style/PlayerAnotherText"
-                android:layout_width="0dp"
-                android:layout_marginBottom="30dp"
+                android:layout_width="@dimen/dimens_0dp"
+                android:layout_marginBottom="@dimen/dimens_30dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:textSize="@dimen/dimens_14sp"
+                android:textSize="@dimen/text_size_14"
                 app:layout_constraintBottom_toTopOf="@+id/player_play_track"
                 app:layout_constraintEnd_toStartOf="@id/right_guideline"
                 app:layout_constraintStart_toStartOf="@+id/left_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/player_track_name"
-                tools:text="Artist" />
+                tools:text="@string/player_artist_name" />
 
             <ImageButton
                 android:id="@+id/player_add_track"
@@ -107,7 +107,7 @@
                 android:id="@+id/player_play_track"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="50dp"
+                android:layout_marginBottom="@dimen/dimens_50dp"
                 android:background="@null"
                 android:src="@drawable/ic_play_track"
                 app:layout_constraintBottom_toTopOf="@+id/durations"
@@ -129,7 +129,7 @@
                 style="@style/PlayerAnotherText"
                 android:layout_marginTop="@dimen/dimens_4dp"
                 android:text="@string/time"
-                android:textSize="@dimen/dimens_14sp"
+                android:textSize="@dimen/text_size_14"
                 app:layout_constraintEnd_toStartOf="@+id/right_guideline"
                 app:layout_constraintStart_toStartOf="@+id/left_guideline"
                 app:layout_constraintTop_toBottomOf="@+id/player_play_track" />
@@ -148,7 +148,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/durations"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/durations"
-                tools:text="00:00" />
+                tools:text="@string/time" />
 
             <TextView
                 android:id="@+id/player_album"
@@ -161,7 +161,7 @@
             <TextView
                 android:id="@+id/player_album_name"
                 style="@style/PlayerRightParam"
-                android:layout_width="0dp"
+                android:layout_width="@dimen/dimens_0dp"
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:textAlignment="textEnd"
@@ -169,7 +169,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/player_album"
                 app:layout_constraintTop_toTopOf="@+id/player_album"
-                tools:text="Yesterday(Remasterd 2009)" />
+                tools:text="@string/player_album_name" />
 
             <TextView
                 android:id="@+id/player_year"
@@ -185,7 +185,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/player_year"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/player_year"
-                tools:text="1965" />
+                tools:text="@string/release_date" />
 
             <TextView
                 android:id="@+id/player_genre"
@@ -201,7 +201,7 @@
                 app:layout_constraintBottom_toBottomOf="@+id/player_genre"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/player_genre"
-                tools:text="Rock" />
+                tools:text="@string/player_primary_genre" />
 
             <TextView
                 android:id="@+id/player_country"
@@ -216,14 +216,14 @@
                 app:layout_constraintBottom_toBottomOf="@+id/player_country"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/player_country"
-                tools:text="Великобритания" />
+                tools:text="@string/player_country_name" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/bottom_guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_end="20dp" />
+                app:layout_constraintGuide_end="@dimen/dimens_20dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
@@ -232,26 +232,26 @@
         android:id="@+id/overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#99000000"
+        android:background="@color/background_for_overlay"
         android:visibility="gone" />
 
     <LinearLayout
         android:id="@+id/bottom_sheet"
         android:layout_width="match_parent"
-        android:layout_height="504dp"
+        android:layout_height="@dimen/dimens_504dp"
         android:background="@drawable/bottom_sheet"
         android:backgroundTint="?attr/colorOnSecondary"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         app:behavior_hideable="true"
-        app:behavior_peekHeight="500dp"
+        app:behavior_peekHeight="@dimen/dimens_500dp"
         app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
         <View
-            android:layout_width="50dp"
-            android:layout_height="4dp"
+            android:layout_width="@dimen/dimens_50dp"
+            android:layout_height="@dimen/dimens_4dp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="@dimen/dimens_10dp"
             android:background="@drawable/bottom_sheet_strip" />
 
         <TextView
@@ -262,8 +262,8 @@
             android:layout_marginTop="@dimen/dimens_16dp"
             android:layout_marginBottom="@dimen/dimens_12dp"
             android:gravity="center"
-            android:padding="10dp"
-            android:text="Добавить в плейлист"
+            android:padding="@dimen/dimens_10dp"
+            android:text="@string/add_to_playlist"
             android:textColor="?attr/colorOnPrimary" />
 
         <Button
@@ -275,12 +275,12 @@
             android:backgroundTint="?attr/colorOnPrimary"
             android:text="@string/new_playlist"
             android:textColor="?attr/colorOnSecondary"
-            app:cornerRadius="@dimen/dimens_20sp" />
+            app:cornerRadius="@dimen/text_size_20" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/playlistRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/dimens_0dp"
             android:layout_weight="1"
             android:scrollbars="vertical" />
 

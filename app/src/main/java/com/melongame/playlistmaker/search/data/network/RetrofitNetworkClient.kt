@@ -32,20 +32,26 @@ class RetrofitNetworkClient(
     override suspend fun doRequest(dto: TrackSearchRequest): Response {
 
         if (!isConnected()) {
-            return Response().apply { resultCode = -1 }
+            return Response().apply { resultCode = NO_CONNECTION }
         }
 
         if (false) {
-            return Response().apply { resultCode = 400 }
+            return Response().apply { resultCode = BAD_REQUEST }
         }
         return withContext(Dispatchers.IO) {
             try {
                 val resp = iTunesApi.getTracks(dto.expression)
-                resp.apply { resultCode = 200 }
+                resp.apply { resultCode = RESULT_SUCCESS }
 
             } catch (e: Throwable) {
-                Response().apply { resultCode = -1 }
+                Response().apply { resultCode = NO_CONNECTION }
             }
         }
+    }
+
+    companion object {
+        private const val RESULT_SUCCESS = 200
+        private const val BAD_REQUEST = 400
+        private const val NO_CONNECTION = -1
     }
 }

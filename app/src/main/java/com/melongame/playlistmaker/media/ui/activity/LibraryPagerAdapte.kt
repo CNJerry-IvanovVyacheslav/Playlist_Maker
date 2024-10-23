@@ -9,13 +9,18 @@ class LibraryPagerAdapter(fragmentManager: FragmentManager, lifecycle: Lifecycle
     FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun getItemCount(): Int {
-        return 2
+        return NUMBER_TWO
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> FavoritesFragment.newInstance()
+            ZERO -> FavoritesFragment.newInstance()
             else -> PlaylistsFragment.newInstance()
         }
+    }
+
+    companion object {
+        private const val NUMBER_TWO = 2
+        private const val ZERO = 0
     }
 }

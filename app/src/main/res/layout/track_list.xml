@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="@dimen/search_bar_8dp"
+    android:padding="@dimen/dimens_8dp"
     android:theme="@style/Theme.PlaylistMaker">
 
     <LinearLayout style="@style/TracksLinearLayout">
@@ -18,7 +18,7 @@
             <TextView
                 android:id="@+id/track_name"
                 style="@style/TracksText"
-                tools:text="Хорошее название" />
+                tools:text="@string/player_track_name" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -30,12 +30,12 @@
                     style="@style/TracksText.artist"
                     android:layout_width="wrap_content"
                     android:layout_weight="1"
-                    tools:text="Длинное прям ооооооооочень длинннннннннное нааааазаззазазвание" />
+                    tools:text="@string/player_artist_name" />
 
                 <TextView
                     android:id="@+id/track_time"
                     style="@style/TracksText.time"
-                    tools:text="2:55" />
+                    tools:text="@string/time" />
 
             </LinearLayout>
 
@@ -43,7 +43,7 @@
 
         <ImageView
             style="@style/TracksArrow"
-            android:layout_marginEnd="12dp" />
+            android:layout_marginEnd="@dimen/dimens_12dp" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

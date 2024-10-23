@@ -3,7 +3,7 @@ package com.melongame.playlistmaker.media.data.db.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favorites")
+@Entity(tableName = "tracks")
 data class TrackEntity(
     @PrimaryKey
     val trackId: Long,

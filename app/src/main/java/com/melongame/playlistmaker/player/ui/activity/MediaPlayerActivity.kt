@@ -81,7 +81,7 @@ class MediaPlayerActivity : AppCompatActivity() {
                 binding.playerPlayTrack.isEnabled = state.isPlayButtonEnabled
 
 
-                Glide.with(this).load(track.artworkUrl100.replaceAfterLast('/', "512x512bb.jpg"))
+                Glide.with(this).load(track.artworkUrl100.replaceAfterLast('/', PICTURE))
                     .placeholder(R.drawable.placeholder).centerCrop().transform(
                         RoundedCorners(
                             TypedValue.applyDimension(
@@ -150,8 +150,8 @@ class MediaPlayerActivity : AppCompatActivity() {
                 BottomSheetBehavior.BottomSheetCallback() {
                 override fun onStateChanged(bottomSheet: View, newState: Int) {
                     when (newState) {
-                        BottomSheetBehavior.STATE_HIDDEN -> binding.overlay.visibility = View.GONE
-                        else -> binding.overlay.visibility = View.VISIBLE
+                        BottomSheetBehavior.STATE_HIDDEN -> binding.overlay.isVisible = false
+                        else -> binding.overlay.isVisible = true
                     }
                 }
 
@@ -242,5 +242,6 @@ class MediaPlayerActivity : AppCompatActivity() {
     companion object {
         private const val KEY_TRACK = "track"
         private const val REQUEST_CODE_CREATE_PLAYLIST = 100
+        private const val PICTURE = "512x512bb.jpg"
     }
 }

@@ -12,7 +12,7 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
     override fun shareLink(link: String, share: String) {
         val shareIntent = Intent(Intent.ACTION_SEND).apply {
             putExtra(Intent.EXTRA_TEXT, link)
-            type = "text/plain"
+            type = TYPE_FOR_SHARE
             addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         }
         val chooserIntent = Intent.createChooser(shareIntent, share).apply {
@@ -29,7 +29,7 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
 
     override fun openEmail(emailData: EmailData) {
         val emailIntent = Intent(Intent.ACTION_SENDTO)
-        emailIntent.data = Uri.parse("mailto:")
+        emailIntent.data = Uri.parse(URI_PARSE)
         emailIntent.putExtra(Intent.EXTRA_EMAIL, arrayOf(emailData.email))
         emailIntent.putExtra(Intent.EXTRA_SUBJECT, emailData.subject)
         emailIntent.putExtra(Intent.EXTRA_TEXT, emailData.message)
@@ -63,5 +63,10 @@ class ExternalNavigatorImpl(private val context: Context) : ExternalNavigator {
 
     override fun getTermsLink(): String {
         return getString(R.string.agreement_link)
+    }
+
+    companion object {
+        private const val TYPE_FOR_SHARE = "text/plain"
+        private const val URI_PARSE = "mailto:"
     }
 }

@@ -23,7 +23,7 @@ class TrackRepositoryImpl(
             when (response.resultCode) {
                 RESULT_SUCCESS -> {
                     val favoriteTrackIds =
-                        appDatabase.trackDao().getFavoriteTracks().first().map { it.trackId }
+                        appDatabase.favoritesDao().getFavoriteTracks().first().map { it.trackId }
                             .toSet()
                     emit(SearchResult.Success((response as TracksResponse).tracks.map {
                         Track(
