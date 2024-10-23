@@ -14,64 +14,28 @@
         android:layout_marginTop="@dimen/dimens_16dp"
         android:text="@string/settings" />
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60dp"
-        android:layout_marginTop="@dimen/dimens_24dp">
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/themeSwitcher"
+        style="@style/SettingsMenu"
+        android:layout_marginTop="@dimen/dimens_24dp"
+        android:text="@string/black_theme" />
 
-        <TextView
-            style="@style/SettingsMenu"
-            android:text="@string/black_theme" />
-
-        <com.google.android.material.switchmaterial.SwitchMaterial
-            android:id="@+id/themeSwitcher"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:theme="@style/SwitchColor" />
-
-    </FrameLayout>
-
-    <FrameLayout
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/shareTheApp"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60dp">
+        style="@style/SettingsMenu"
+        android:drawableEnd="@drawable/share_light"
+        android:text="@string/share" />
 
-        <TextView
-            style="@style/SettingsMenu"
-            android:text="@string/share" />
-
-        <ImageView
-            style="@style/IconInSettings"
-            android:src="@drawable/share_light" />
-    </FrameLayout>
-
-    <FrameLayout
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/writeInSupport"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60dp">
+        style="@style/SettingsMenu"
+        android:drawableEnd="@drawable/support_light"
+        android:text="@string/support" />
 
-        <TextView
-            style="@style/SettingsMenu"
-            android:text="@string/support" />
-
-        <ImageView
-            style="@style/IconInSettings"
-            android:src="@drawable/support_light" />
-
-    </FrameLayout>
-
-    <FrameLayout
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/agreement"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dimens_60dp">
+        style="@style/SettingsMenu"
+        android:drawableEnd="@drawable/forward_light"
+        android:text="@string/user_agreement" />
 
-        <TextView
-            style="@style/SettingsMenu"
-            android:text="@string/user_agreement" />
-
-        <ImageView
-            style="@style/IconInSettings"
-            android:src="@drawable/forward_light" />
-
-    </FrameLayout>
 </LinearLayout>

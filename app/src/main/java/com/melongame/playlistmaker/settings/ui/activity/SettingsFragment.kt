@@ -32,7 +32,7 @@ class SettingsFragment : Fragment() {
             viewModel.switchTheme(checked)
         }
 
-        binding.shareTheApp.setOnClickListener {
+        binding.shareTheApp.setOnClickListener() {
             viewModel.shareApp()
         }
 
